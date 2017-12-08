@@ -39,21 +39,21 @@
                 @if((Route::getCurrentRoute()->getPath()) == 'getmesa/{id}' OR (Route::getCurrentRoute()->getPath()) == 'categoria/{id?}' OR(Route::getCurrentRoute()->getPath()) == 'produto/buscar')
                 <div class="col-lg-2">
                     <div class="row">
-                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
                             </br>
                             </br>
                             <h3>Categorias</h3>
                                 <a class='btn btn-primary hidden-xs' href="{{url('getmesa/'.\Session::get('id_mesa'))}}">Voltar ao Cardápio</a>
                                 <br/>
                                 <br/>
-                                <div class="col-lg-2">
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                                     <div class="dropdown"><!-- remover causo precise e fechamento depois da ul-->
                                         <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" data-hover="dropdown">
                                             Categorias
                                             <span class="caret"></span>
                                         </button>
                                         <a class='btn btn-primary hidden-sm hidden-md hidden-lg' href="{{url('getmesa/'.\Session::get('id_mesa'))}}">Voltar ao Cardápio</a>
-                                        <ul class="dropdown-menu" data-hover="dropdown" aria-labelledby="dropdownMenu1">
+                                        <ul class="dropdown-menu col-sm-12 col-xs-12" data-hover="dropdown" aria-labelledby="dropdownMenu1">
                                             @foreach ($listcategorias as $cat)
                                             @if ($cat->categoria_id=='')
                                             <li>
@@ -88,9 +88,12 @@
                 <br/>
                     @if((Route::getCurrentRoute()->getPath()) == 'cadastrar_cliente' OR ((Route::getCurrentRoute()->getPath()) == 'login_cliente'))  
                     @else
+                    <div class="col-lg-12">
                     @include('layouts.messages')
+
                     @endif
                     @yield('conteudo')
+                    </div>
                 </div> <!-- /container -->
         <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
         <script src="{{asset('bootstrap/js/jquery.min.js')}}"></script>

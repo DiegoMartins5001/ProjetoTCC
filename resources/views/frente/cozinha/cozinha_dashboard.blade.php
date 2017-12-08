@@ -350,7 +350,7 @@ $(function() {
                                         });
                                         $('.pendente').on("click",function(){
                                             var id = $(this).attr('value');
-                                            console.log($('.and'));
+                                            //console.log($('.and'));
                                             if($('.novos_pendente').length == true){
                                                                                     
                                                 $('.txt_pendente').removeClass('hidden');
@@ -386,6 +386,20 @@ $(function() {
                                                             $(".and").last().append(tr);
                                                         }
                                                     }
+                                                    //TERMINAR TEXTOS 
+                                                    /*if($('.pend').length == false){
+                                                                                    
+                                                        $('.txt_pendente').removeClass('hidden');
+                                                        $('.novos_pendente').addClass('hidden');
+                                                        //$('.pendente_thead').addClass('hidden');
+                                                        //$('.tab').addClass('hidden');
+                                                        //$('.txt_pendente').removeClass('hidden');
+                                                    }else{
+                                                        $('.txt_pendente').addClass('hidden');
+                                                        $('.novos_pendente').removeClass('hidden');
+                                                        //$('.novos_pendente').empty();
+                                                        //$('.novos_pendente').attr('style', 'display: block !important');
+                                                    }*/
                                                 },
                                             });
                                             if($('.and').length == false){                      

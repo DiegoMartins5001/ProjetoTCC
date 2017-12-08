@@ -132,7 +132,7 @@ class MesaController extends Controller{
         }elseif($mesa->status == 1){
            return redirect('/')->with('mensagens-danger','Essa mesa não foi reservada'); 
        }else{
-        $produto = Produto::all();
+        $produto = Produto::where('destacado',0)->get();
         $produto_destacado = Produto::where('destacado',1)->get();
         $itens = $this->carrinho->getItens();
         $total = $this->carrinho->getTotal();

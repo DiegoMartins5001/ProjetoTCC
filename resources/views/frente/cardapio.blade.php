@@ -20,66 +20,79 @@ background-image: linear-gradient(45deg, rgba(235, 235, 235, 0.15) 25%, rgba(0, 
     <a class="btn btn-info" href="{{url('volte_sempre_liberar',\Session::get('id_mesa'))}}">Sair da mesa</a>
     <br/>
     <br/>
-    <h1 class='hidden-xs'>Produtos em Destaque:</h1>
-    <h1 style='margin-top:50px;' class='hidden-lg hidden-md hidden-sm '>Produtos em Destaque:</h1>
-    <div class='col-sm-12'>
-        <div class="page-header text-muted">
-            {{count($produto_destacado)}} Produtos em Destaque
-        </div>
+    <div class="form-group">
+        <label class="radio-inline">
+            <input checked  value="1" type="radio" name="menu">Produtos em Destaque
+        </label>
+        <label class="radio-inline">
+            <input value="2" type="radio" name="menu">Cardápio
+        </label>
+        <p class="mensagem_error">{{$errors->first('servico',':message')}}</p>
     </div>
-    <div class="col-md-12">
-        @foreach($produto_destacado->chunk(3) as $chunked)
-        <div class="row">
-        @foreach($chunked as $produto_destacado)
-            <div class="teste">
-                <div class="col-sm-6 col-md-4">
-                    <div class="front">
-                        <img style='height:300px; width:300px;' src="{{asset('uploads/'.$produto_destacado->imagem_nome)}}" alt="{{$produto_destacado->imagem_nome}}">
-                        <a style="width:99%;" class='btn btn-info btn-lg btn-block text-center loading disabled'>Clique Aqui Para Mais Informações</a>
-                    </div>
-                    <div class="back">
-                        <div class="caption">
+    <div id='prod_destacado'>
+        <h1 class='hidden-xs'>Produtos em Destaque:</h1>
+        <h1 style='margin-top:50px;' class='hidden-lg hidden-md hidden-sm '>Produtos em Destaque:</h1>
+        <div class='col-sm-12'>
+            <div class="page-header text-muted">
+                {{count($produto_destacado)}} Produtos em Destaque
+            </div>
+        </div>
+        <div class="col-md-12">
+            @foreach($produto_destacado->chunk(3) as $chunked)
+            <div class="row">
+            @foreach($chunked as $produto_destacado)
+                <div class="teste">
+                    <div class="col-sm-6 col-md-4">
+                        <div class="front">
                             <img style='height:300px; width:300px;' src="{{asset('uploads/'.$produto_destacado->imagem_nome)}}" alt="{{$produto_destacado->imagem_nome}}">
-                            <div><h3>{{$produto_destacado->nome}}</h3></div>
-                            <h4 class="text-muted">{{$produto_destacado->marca->nome}}</h4>
-                            <p style="width: 200px;" class="col-xs-4">{{str_limit($produto_destacado->descricao,100)}}</p>
-                            <button type="button" class="btn btn-primary btn-lg getid" value='{{$produto_destacado->id}}' data-toggle="modal" data-target="#myModal">Mais Detalhes</button>
-                            <h4>R$:{{$produto_destacado->preco_venda}}</h4>
+                            <a style="width:99%;" class='btn btn-info btn-lg btn-block text-center loading disabled'>Clique Aqui Para Mais Informações</a>
+                        </div>
+                        <div class="back">
+                            <div class="caption">
+                                <img style='height:300px; width:300px;' src="{{asset('uploads/'.$produto_destacado->imagem_nome)}}" alt="{{$produto_destacado->imagem_nome}}">
+                                <div><h3>{{$produto_destacado->nome}}</h3></div>
+                                <h4 class="text-muted">{{$produto_destacado->marca->nome}}</h4>
+                                <p style="width: 200px;" class="col-xs-4">{{str_limit($produto_destacado->descricao,100)}}</p>
+                                <button type="button" class="btn btn-primary btn-lg getid" value='{{$produto_destacado->id}}' data-toggle="modal" data-target="#myModal">Mais Detalhes</button>
+                                <h4>R$:{{$produto_destacado->preco_venda}}</h4>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        @endforeach
-        </div>
-        @endforeach
-    </div>
-    <br/>
-    <h2 style="padding-bottom: 50px;">Cardápio</h2>
-    <div class="col-md-12">
-    @foreach($produto->chunk(3) as $linha)
-        <div class='row'>
-        @foreach($linha as $produto)
-            <div class="col-sm-6 col-md-4 flip" style="margin-bottom: 30px;">
-                <div class="front">
-                    <img style='height:300px; width:300px;' src="{{asset('uploads/'.$produto->imagem_nome)}}" alt="">
-                    <a style="width:99%;" class='btn btn-info btn-lg btn-block text-center loading disabled'>Clique Aqui Para Mais Informações</a>
-                </div>
-                <div class="back">
-                    <img style='height:300px; width:300px;' src="{{asset('uploads/'.$produto->imagem_nome)}}" alt="">
-                    <div class="card-body">
-                        <h4 class="card-title">
-                            {{$produto->nome}}
-                        </h4>
-                        <p class="card-text">{{str_limit($produto->descricao,100)}}</p>
-                        <h4 class="card-text">R${{$produto->preco_venda}}</h4>
-                    <!-- Trigger the modal with a button -->
-                        <button type="button" class="btn btn-primary btn-lg getid" value='{{$produto->id}}' data-toggle="modal" data-target="#myModal">Mais Detalhes</button>
-                    </div>
-                </div>
+            @endforeach
             </div>
             @endforeach
         </div>
-        @endforeach
+    </div>
+    <br/>
+    <div id='cardapio_produtos'>
+        <h2 style="padding-bottom: 50px;">Cardápio</h2>
+        <div class="col-md-12">
+        @foreach($produto->chunk(3) as $linha)
+            <div class='row'>
+            @foreach($linha as $produto)
+                <div class="col-sm-6 col-md-4 flip" style="margin-bottom: 30px;">
+                    <div class="front">
+                        <img style='height:300px; width:300px;' src="{{asset('uploads/'.$produto->imagem_nome)}}" alt="">
+                        <a style="width:99%;" class='btn btn-info btn-lg btn-block text-center loading disabled'>Clique Aqui Para Mais Informações</a>
+                    </div>
+                    <div class="back">
+                        <img style='height:300px; width:300px;' src="{{asset('uploads/'.$produto->imagem_nome)}}" alt="">
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                {{$produto->nome}}
+                            </h4>
+                            <p class="card-text">{{str_limit($produto->descricao,100)}}</p>
+                            <h4 class="card-text">R${{$produto->preco_venda}}</h4>
+                        <!-- Trigger the modal with a button -->
+                            <button type="button" class="btn btn-primary btn-lg getid" value='{{$produto->id}}' data-toggle="modal" data-target="#myModal">Mais Detalhes</button>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+            @endforeach
+        </div>
     </div>
     <!-- Modal -->
     <div id="myModal" class="modal fade" role="dialog">
@@ -151,7 +164,7 @@ background-image: linear-gradient(45deg, rgba(235, 235, 235, 0.15) 25%, rgba(0, 
                         <td class="text-center quant_item col-md-6 col-sm-6 col-xs-5"> 
                              <input style="width: 27px; height: 25px; margin-right: 1px;" type="numeric" value="{{$item->qtde}}" name="quant" disabled class="col-sm-1 col-xs-1 form-control btn-xs text-center quant">
                                 
-                                <button style="margin-right: 2px; margin-left: 1px; width: 10px; text-indent: -3px;" class="btn btn-primary btn-sm col-md-2 col-sm-2 col-xs-2 increment" type="submit" value="{{$item->produto->id}}"><strong style="text-indent: 50px;">+</button>
+                                <button style="margin-right: 2px; margin-left: 1px; width: 10px; text-indent: -3px;" class="btn btn-primary btn-sm col-md-2 col-sm-2 col-xs-2 increment" type="submit" value="{{$item->produto->id}}">+</button>
 
                                 <button style="text-indent: -3px;" name="teste" class="btn btn-primary btn-sm col-md-1 col-sm-1 col-xs-1 decrement" type="submit" value="{{$item->produto->id}}"> - </button>
                         </td>
@@ -208,136 +221,100 @@ $(function() {
     });
         //console.log($('.titulo').size('Carrinho') ==0);
         //Correçao bug H4 mantendo nome do produto apos click em "Mais Detalhes"
-        $( document ).ready(function() {
-           $('.carrinho').on('click',function(){
-            if($('.titulo').text('Carrinho') == false){
-                    $('.titulo').text('Carrinho');
-                }
-            }); 
-        });
-        $('.getid').click(function(){
-            var id = $(this).attr('value');
-            $.ajax({
-                type: "GET",
-                url: 'http://localhost:8000/mesa/produto/'+id,
-                data: {id: id},
-                success: function(id){
-                avaliado = id.avaliacao_total/id.avaliacao_qtde;
-                $('.modal-title').html(id.nome);
-                $('.conteudo').html(id.descricao);
-                $('.valor').html('R$: '+id.preco_venda);
-                $(".imagem").attr("src",'http://localhost:8000/uploads/'+id.imagem_nome);
-                $('.add_carrinho').val(id.id);
+    $( document ).ready(function() {
+       $('.carrinho').on('click',function(){
+        if($('.titulo').text('Carrinho') == false){
+                $('.titulo').text('Carrinho');
+            }
+        }); 
+    });
+    $('.getid').click(function(){
+        var id = $(this).attr('value');
+        $.ajax({
+            type: "GET",
+            url: 'http://localhost:8000/mesa/produto/'+id,
+            data: {id: id},
+            success: function(id){
+            avaliado = id.avaliacao_total/id.avaliacao_qtde;
+            $('.modal-title').html(id.nome);
+            $('.conteudo').html(id.descricao);
+            $('.valor').html('R$: '+id.preco_venda);
+            $(".imagem").attr("src",'http://localhost:8000/uploads/'+id.imagem_nome);
+            $('.add_carrinho').val(id.id);
                 if(Number.isNaN(avaliado)){
                   $('.avaliado').html('Não avaliado');  
                 }else{
                   $('.avaliado').html(avaliado.toFixed(2));
                 }
-                //console.log(id);
-                //console.log($('.add_carrinho').val());
-                //console.log(id.id);
-                },
-            });
-            
+            },
         });
+        
+    });
 });
-</script>
-
-<!-- Increment -->
-
-<script type="text/javascript">
+//****----Increment----****//
 $(function() {
     $.ajaxSetup({
         headers:{
             'X-CSRF-Token':$('input[name="_token"]').val()
         }
     });
-        $('.increment').on("click",function(){
-            var id = $(this).attr('value');
-            
-            //console.log($(".total").text());
-            //var qtde = $('.quant').attr('value');
-            //alert(qtde);
-            //console.log(id);
-            $.ajax({
-                type: "GET",
-                url: 'http://localhost:8000/increment_teste/'+id,
-                data: {id : id},
-                success: function(total) {
-                //console.log(total);
-                $('.total').html('R$'+total);   
-                $(this).next().prop('disabled', false);
-                var load = $(this).next().load('disabled', false);
-                //$('.total').load().val(); carrega valor 
-                //$('.increment').html(id.id);
-                //console.log(total);
-                //console.log(id.id);
-                //console.log($('.add_carrinho').val());
-                //console.log(id.id);
-                },
-            });
-            
+    $('.increment').on("click",function(){
+        var id = $(this).attr('value');
+        $.ajax({
+            type: "GET",
+            url: 'http://localhost:8000/increment_teste/'+id,
+            data: {id : id},
+            success: function(total) {
+            //console.log(total);
+            $('.total').html('R$'+total);   
+            $(this).next().prop('disabled', false);
+            var load = $(this).next().load('disabled', false);
+            },
         });
+        
+    });
 });
-</script>
-<!-- Decrement -->
-<script type="text/javascript">
+//****----Decrement----****//
 $(function() {
     $.ajaxSetup({
         headers:{
             'X-CSRF-Token':$('input[name="_token"]').val()
         }
     });
-        $('.decrement').on("click",function(){
-            var id = $(this).attr('value');
-            //console.log($(this).parent().parent().parent().next().children().children().next().children().html()); acessa valor por Jquery metodo navegação por tag
-            //var qtde = $('.quant').attr('value');
-            //alert(qtde);
-            //console.log(id);
-            if($(this).prev().prev().val()<2){
-            $(this).prop('disabled', true);
-            }
-            $.ajax({
-                type: "GET",
-                url: 'http://localhost:8000/decrement_teste/'+id,
-                data: {id : id},
-                success: function(total) {
-                $('.total').html('R$'+total);
-                //$('.total').load().text();
-                //$('.increment').html(id.id);
-                //console.log(total);
-                //console.log(id.id);
-                //console.log($('.add_carrinho').val());
-                //console.log(id.id);
-                },
-            });
-            
+    $('.decrement').on("click",function(){
+        var id = $(this).attr('value');
+        if($(this).prev().prev().val()<2){
+        $(this).prop('disabled', true);
+        }
+        $.ajax({
+            type: "GET",
+            url: 'http://localhost:8000/decrement_teste/'+id,
+            data: {id : id},
+            success: function(total) {
+            $('.total').html('R$'+total);
+            },
         });
+        
+    });
 });
-</script>
 
-
-<script type="text/javascript">
 $(function() {
-    
-        $('.add_carrinho').click(function(){
-            window.location.href =  "http://localhost:8000/finalizar_cardapio/";    
-            
-        });
+    $('.add_carrinho').click(function(){
+        window.location.href =  "http://localhost:8000/finalizar_cardapio/";
+    });
 });
-</script>
-<script>
 //////////////incrementaçao btn
     $(".increment").on('click',function(){
         var value = $('.quant').val();
         $(this).prev().val(parseInt($(this).prev().val())+1); return false;
     });
+
     $(".increment").on('click',function(){
       if($(this).prev().val()<2){
             $(this).next().prop('disabled', true);
         }
-        
     });
+
     $(".increment").on('click',function(){
       if($(this).prev().val()>1){
             $(this).next().prop('disabled', false);
@@ -356,17 +333,48 @@ $(function() {
             $(this).prop('disabled', true);
         }
     });
-</script>
 
-
-<script type="text/javascript">
 $(function() {
-    
-        $('.cadastrar').click(function(){
-            window.location.href =  "http://localhost:8000/cadastrar_cliente/";    
-            
-        });
+    $('.cadastrar').click(function(){
+        window.location.href =  "http://localhost:8000/cadastrar_cliente/";
+    });
 });
 </script>
+<!-- DIVS CARDAPIO E PRODUTOS EM DESTAQUE SCRIPT  -->
+<script src="{{asset('bootstrap/js/jquery.min.js')}}"></script>
+<script type="text/javascript">
+$(document).ready(function () {
+    $('#pag_cartao').hide();
+   $('input[name="menu"]').click(function () {
+    if($('input[name="menu"]:checked').val() == '1') {
+        prod_destaque();
+    }else{
+       cardapio_prod(); 
+    }
+    });
 
+});
+function prod_destaque(){
+
+    if($('input[name="menu"]:checked').val() == '1') {
+        $('#prod_destacado').show();
+        $('#cardapio_produtos').hide();
+    }
+    else {
+        $('#prod_destacado').hide();
+        $('#cardapio_produtos').show();
+    }
+}
+
+function cardapio_prod(){
+    if($('input[name="menu"]:checked').val() == '2') {
+        $('#cardapio_produtos').show();
+        $('#prod_destacado').hide();
+    }
+    else {
+        $('#prod_destacado').show();
+        $('#cardapio_produtos').hide();
+    }
+}
+</script>
 @stop

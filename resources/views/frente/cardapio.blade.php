@@ -10,6 +10,100 @@ animation: 2s linear 0s normal none infinite progress-bar-stripes;
 .btn.btn-default.loading,input[type="text"].loading,select.loading,textarea.loading,.well.loading,.list-group-item.loading,.pagination>li.active.loading>a,.pager>li.loading>a{
 background-image: linear-gradient(45deg, rgba(235, 235, 235, 0.15) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(235, 235, 235, 0.15) 50%, rgba(235, 235, 235, 0.15) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));
 }
+
+
+
+
+
+.btn3d {
+    position:relative;
+    top: -6px;
+    border:0;
+     transition: all 40ms linear;
+     margin-top:10px;
+     margin-bottom:10px;
+     margin-left:2px;
+     margin-right:2px;
+}
+.btn3d:active:focus,
+.btn3d:focus:hover,
+.btn3d:focus {
+    -moz-outline-style:none;
+         outline:medium none;
+}
+.btn3d:active, .btn3d.active {
+    top:2px;
+}
+.btn3d.btn-white {
+    color: #666666;
+    box-shadow:0 0 0 1px #ebebeb inset, 0 0 0 2px rgba(255,255,255,0.10) inset, 0 8px 0 0 #f5f5f5, 0 8px 8px 1px rgba(0,0,0,.2);
+    background-color:#fff;
+}
+.btn3d.btn-white:active, .btn3d.btn-white.active {
+    color: #666666;
+    box-shadow:0 0 0 1px #ebebeb inset, 0 0 0 1px rgba(255,255,255,0.15) inset, 0 1px 3px 1px rgba(0,0,0,.1);
+    background-color:#fff;
+}
+.btn3d.btn-default {
+    color: #666666;
+    box-shadow:0 0 0 1px #ebebeb inset, 0 0 0 2px rgba(255,255,255,0.10) inset, 0 8px 0 0 #BEBEBE, 0 8px 8px 1px rgba(0,0,0,.2);
+    background-color:#f9f9f9;
+}
+.btn3d.btn-default:active, .btn3d.btn-default.active {
+    color: #666666;
+    box-shadow:0 0 0 1px #ebebeb inset, 0 0 0 1px rgba(255,255,255,0.15) inset, 0 1px 3px 1px rgba(0,0,0,.1);
+    background-color:#f9f9f9;
+}
+.btn3d.btn-primary {
+    box-shadow:0 0 0 1px #417fbd inset, 0 0 0 2px rgba(255,255,255,0.15) inset, 0 8px 0 0 #4D5BBE, 0 8px 8px 1px rgba(0,0,0,0.5);
+    background-color:#4274D7;
+}
+.btn3d.btn-primary:active, .btn3d.btn-primary.active {
+    box-shadow:0 0 0 1px #417fbd inset, 0 0 0 1px rgba(255,255,255,0.15) inset, 0 1px 3px 1px rgba(0,0,0,0.3);
+    background-color:#4274D7;
+}
+.btn3d.btn-success {
+    box-shadow:0 0 0 1px #31c300 inset, 0 0 0 2px rgba(255,255,255,0.15) inset, 0 8px 0 0 #5eb924, 0 8px 8px 1px rgba(0,0,0,0.5);
+    background-color:#78d739;
+}
+.btn3d.btn-success:active, .btn3d.btn-success.active {
+    box-shadow:0 0 0 1px #30cd00 inset, 0 0 0 1px rgba(255,255,255,0.15) inset, 0 1px 3px 1px rgba(0,0,0,0.3);
+    background-color: #78d739;
+}
+.btn3d.btn-info {
+    box-shadow:0 0 0 1px #00a5c3 inset, 0 0 0 2px rgba(255,255,255,0.15) inset, 0 8px 0 0 #348FD2, 0 8px 8px 1px rgba(0,0,0,0.5);
+    background-color:#39B3D7;
+}
+.btn3d.btn-info:active, .btn3d.btn-info.active {
+    box-shadow:0 0 0 1px #00a5c3 inset, 0 0 0 1px rgba(255,255,255,0.15) inset, 0 1px 3px 1px rgba(0,0,0,0.3);
+    background-color: #39B3D7;
+}
+.btn3d.btn-warning {
+    box-shadow:0 0 0 1px #d79a47 inset, 0 0 0 2px rgba(255,255,255,0.15) inset, 0 8px 0 0 #D79A34, 0 8px 8px 1px rgba(0,0,0,0.5);
+    background-color:#FEAF20;
+}
+.btn3d.btn-warning:active, .btn3d.btn-warning.active {
+    box-shadow:0 0 0 1px #d79a47 inset, 0 0 0 1px rgba(255,255,255,0.15) inset, 0 1px 3px 1px rgba(0,0,0,0.3);
+    background-color: #FEAF20;
+}
+.btn3d.btn-danger {
+    box-shadow:0 0 0 1px #b93802 inset, 0 0 0 2px rgba(255,255,255,0.15) inset, 0 8px 0 0 #AA0000, 0 8px 8px 1px rgba(0,0,0,0.5);
+    background-color:#D73814;
+}
+.btn3d.btn-danger:active, .btn3d.btn-danger.active {
+    box-shadow:0 0 0 1px #b93802 inset, 0 0 0 1px rgba(255,255,255,0.15) inset, 0 1px 3px 1px rgba(0,0,0,0.3);
+    background-color: #D73814;
+}
+.btn3d.btn-magick {
+    color: #fff;
+    box-shadow:0 0 0 1px #9a00cd inset, 0 0 0 2px rgba(255,255,255,0.15) inset, 0 8px 0 0 #9823d5, 0 8px 8px 1px rgba(0,0,0,0.5);
+    background-color:#bb39d7;
+}
+.btn3d.btn-magick:active, .btn3d.btn-magick.active {
+    box-shadow:0 0 0 1px #9a00cd inset, 0 0 0 1px rgba(255,255,255,0.15) inset, 0 1px 3px 1px rgba(0,0,0,0.3);
+    background-color: #bb39d7;
+}
+
 </style>
 <br/>
     @if(\Session::get('cliente')=='')
@@ -34,7 +128,7 @@ background-image: linear-gradient(45deg, rgba(235, 235, 235, 0.15) 25%, rgba(0, 
         <h1 style='margin-top:50px;' class='hidden-lg hidden-md hidden-sm '>Produtos em Destaque:</h1>
         <div class='col-sm-12'>
             <div class="page-header text-muted">
-                {{count($produto_destacado)}} Produtos em Destaque
+                <h3 style="color: #26C6DA";>{{count($produto_destacado)}} Produtos em Destaque</h3>
             </div>
         </div>
         <div class="col-md-12">
@@ -110,7 +204,7 @@ background-image: linear-gradient(45deg, rgba(235, 235, 235, 0.15) 25%, rgba(0, 
                <img style='height:200px; width:200px;' class="imagem" />
                <div class='col-md-12'>
                <p>Média de avaliações<p>
-               <h5 class="alert alert-success text-center avaliado col-md-3"><strong></strong>
+               <h5 style="background-color:#2ecc71; border-radius:7px; height:30px; padding-top: 7px; color: black; font-weight: bold;" class="text-center avaliado col-md-3"><strong></strong>
                </h5>
                </div>
             <form class="action_carrinho"  action="{{route('adicionar')}}">
@@ -146,7 +240,7 @@ background-image: linear-gradient(45deg, rgba(235, 235, 235, 0.15) 25%, rgba(0, 
                         <th class="text-right">Preço Unitário</th>
                         <th>Quantidade</th>
                         <th></th>
-                        <th><a href="{{route('carrinho.esvaziar')}}" class='btn btn-warning btn-sm'>Esvaziar carrinho</a></th>
+                        <th><a style="font-weight: bold;" href="{{route('carrinho.esvaziar')}}" class='btn btn-warning btn-sm'>Esvaziar Carrinho</a></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -162,15 +256,20 @@ background-image: linear-gradient(45deg, rgba(235, 235, 235, 0.15) 25%, rgba(0, 
                             {{number_format($item->produto->preco_venda, 2, ',', '.')}}
                         </td>
                         <td class="text-center quant_item col-md-6 col-sm-6 col-xs-5"> 
-                             <input style="width: 27px; height: 25px; margin-right: 1px;" type="numeric" value="{{$item->qtde}}" name="quant" disabled class="col-sm-1 col-xs-1 form-control btn-xs text-center quant">
+                             <input style="width: 27px; height: 25px; margin-right: 1px; margin-top: 10px;" type="numeric" value="{{$item->qtde}}" name="quant" disabled class="col-sm-1 col-xs-1 form-control btn-xs text-center quant">
                                 
-                                <button style="margin-right: 2px; margin-left: 1px; width: 10px; text-indent: -3px;" class="btn btn-primary btn-sm col-md-2 col-sm-2 col-xs-2 increment" type="submit" value="{{$item->produto->id}}">+</button>
+                                <!--<button style="margin-right: 2px; margin-left: 1px; width: 10px; text-indent: -3px;" class="btn btn-primary btn-sm col-md-2 col-sm-2 col-xs-2 increment" type="submit" value="{{$item->produto->id}}">+</button>-->
 
-                                <button style="text-indent: -3px;" name="teste" class="btn btn-primary btn-sm col-md-1 col-sm-1 col-xs-1 decrement" type="submit" value="{{$item->produto->id}}"> - </button>
+                                <button style="text-indent: -5px; margin-bottom: 10px; padding-left: 14px; padding-right: 5px; margin-top: 15px;" type="button" value="{{$item->produto->id}}" name="teste" class="btn-xs btn-primary btn-sm-1 col-md-1 col-xs-1 btn-xs-1 col-sm-offset--1 btn3d increment"><span class="glyphicon glyphicon-plus"></span></button>
+
+                                <button style="text-indent: -5.5px; margin-bottom: 10px; padding-left: 14px; padding-right: 5px; margin-top: 15px;" type="button" value="{{$item->produto->id}}" name="teste" class="btn-xs btn-primary btn-sm-1 col-md-1 col-xs-1 btn-xs-1 btn3d decrement"><span class="glyphicon glyphicon-minus"></span></button>
+
+                                <!--<button style="text-indent: -3px;" name="teste" class="btn btn-primary btn-sm col-md-1 col-sm-1 col-xs-1 decrement" type="submit" value="{{$item->produto->id}}"> - </button>-->
+                                
                         </td>
                         <td> 
                         <a href="{{route('remover', $item->produto->id, $item->qtde)}}" 
-                                style="margin-bottom: 3px; margin-right: 15px;" class="btn btn-danger btn-xs pull-right">Excluir item</a>
+                                style="margin-bottom: 3px; margin-right: 15px; font-weight: bold;" class="btn btn-danger btn-xs pull-right">Excluir item</a>
                         </td>
                     </tr>
                     @endforeach
@@ -191,7 +290,7 @@ background-image: linear-gradient(45deg, rgba(235, 235, 235, 0.15) 25%, rgba(0, 
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default  pull-right" data-dismiss="modal">Fechar</button>
-                <button type="submit" name="botao" class="btn btn-primary btn-lg  pull-left add_carrinho" > Confirmar pedido</button>
+                <button type="submit" style="font-weight: bold;" name="botao" class="btn btn-primary btn-lg pull-left add_carrinho" ><span class="glyphicon glyphicon-shopping-cart"></span> Confirmar Pedido</button>
           </div>
         </div>
       </div>

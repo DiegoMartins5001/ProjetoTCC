@@ -11,9 +11,9 @@
             <th class="text-right">Valor</th>
             <th class="text-right"></th>
             @if($pedido->user_id != '')
-            <th style="color:#006400;">Cadastrado</th>
+            <th class="text-center" style="color:#006400; text-align: center;">Cadastrado</th>
             @else
-            <th style="color: #8B0000;">Não Cadastrado</th>
+            <th style="color: #8B0000; text-align: left;">Não Cadastrado</th>
             @endif
             
             <th class="text-right">Status</th>
@@ -227,6 +227,10 @@ $(document).ready(function (somenteNumeros) {
         var data=$(this).val().replace(",",".");
         var troco = $('.total').on().text();
         troco_retorno = data-troco;
+        
+        /*function formataDinheiro(troco_retorno) {
+            console.log("R$ " + n.toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, "$1."));
+        }*/
         setTimeout(
             function(){
                 if((troco_retorno).toFixed(2).length < 0){
@@ -234,6 +238,7 @@ $(document).ready(function (somenteNumeros) {
                 }
                 if((troco_retorno.toFixed(2))>0){
                     $('#troco').text(troco_retorno.toFixed(2));
+
                     $('.confirmar').prop('disabled', false);
                 }
                 if ((troco_retorno.toFixed(2))==0) {
@@ -245,7 +250,6 @@ $(document).ready(function (somenteNumeros) {
                     $('#troco').show().text('Valor Inferior ao Total');
                     $('.confirmar').prop('disabled', true);
                 }
-                console.log($('#troco').text()!='');
                 if($('#troco').text()!=''){
                     $('.desconto').prop('disabled',false);
                     $('.desconto_total').prop('disabled',false);
@@ -285,7 +289,6 @@ $(document).ready(function () {
                 success: function(desconto) {
                     //console.log(desconto[0].desconto);
                     //console.log(desconto[0].total);
-                    console.log(desconto[0].novo_desc);
                     $('.novo_total').text(desconto[0].total);
                     $('.novo_desc').text(desconto[0].novo_desc);
                     $('.novo_total_desc').text(desconto[0].desconto);
@@ -308,14 +311,12 @@ $(".confirmar").click('change',function() {
         var desconto = $('.novo_total_desc').text();
         var total_n = $('.novo_total').text();
         var troco_n = $('.novo_desc').text();
-        console.log(desconto);
         var id_pedido = '{{$pedido->id_venda}}';
         if($('.troco').text() == "R$:0"){
             var troco = $('#troco').text('0');   
         }
         var troco = $('#troco').text();
         var entrada = $('.entrada_valor').val();
-        console.log(troco);
         window.location.href = 
         '{{route("troco.salvar")}}'+'/'+id_pedido+'/'+troco+'/'+entrada+'/'+desconto+'/'+total_n+'/'+troco_n+'/';    
     });

@@ -34,7 +34,7 @@ class LoginController extends Controller{
                     \Session::put('id',$dados->id);
                     \Session::put('nome',$dados->name);
                     \Session::put('role',$dados->role);
-                    return redirect('cozinha_dashboard')->with("mensagens-sucesso",'Seja Bem vindo');
+                    return redirect('cozinha_dashboard')->with("mensagens-sucesso-centro",'Seja Bem vindo');
                     }
 
                     if($dados->role == 'admin'){
@@ -49,7 +49,7 @@ class LoginController extends Controller{
                     \Session::put('id_recepcao',$dados->id);
                     \Session::put('nome_recepcao',$dados->name);
                     \Session::put('role_recepcao',$dados->role);
-                    return redirect('/')->with("mensagens-sucesso",'Seja Bem vindo');    
+                    return redirect('/')->with("mensagens-sucesso-centro",'Seja Bem vindo');    
                     }
 
                     if($dados->role == 'admin/caixa'){

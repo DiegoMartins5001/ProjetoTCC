@@ -37,6 +37,37 @@
         @endif
     </div>
 @endif
+
+@if (Session::has('mensagens-sucesso-centro'))
+    <!-- mostra este bloco se existe uma chave na sessão chamada mensagens-sucesso -->
+    <div style="margin-top:5px;" class='alert alert-success container'>
+        @if (is_array(Session::get('mensagens-sucesso-centro')))
+            <ul>
+            @foreach (Session::get('mensagens-sucesso-centro') as $msg)
+                <li>{{$msg}}</li>
+            @endforeach
+            </ul>
+        @else
+            {{Session::get('mensagens-sucesso-centro')}}
+        @endif
+    </div>
+@endif
+
+@if (Session::has('mensagens-danger-centro'))
+    <!-- mostra este bloco se existe uma chave na sessão chamada mensagens-sucesso -->
+    <div style="margin-top:5px;" class='alert alert-danger container'>
+        @if (is_array(Session::get('mensagens-danger-centro')))
+            <ul>
+            @foreach (Session::get('mensagens-danger-centro') as $msg)
+                <li>{{$msg}}</li>
+            @endforeach
+            </ul>
+        @else
+            {{Session::get('mensagens-danger-centro')}}
+        @endif
+    </div>
+@endif
+
 <script src="{{asset('bootstrap/js/jquery.min.js')}}"></script>
 <script type="text/javascript">
 $(document).ready (function(){

@@ -12,7 +12,8 @@
         "michael/laravelpagseguro": "dev-master",
         "intervention/image": "^2.3",
         "laravel/socialite": "~2.0",
-        "jeroennoten/laravel-adminlte": "^1.19"
+        "jeroennoten/laravel-adminlte": "^1.19",
+        "components/jquery": "1.9.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

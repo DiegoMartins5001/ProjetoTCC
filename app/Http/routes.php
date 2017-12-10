@@ -144,12 +144,12 @@ Route::group(['middleware'=>'Shoppvel\Http\Middleware\cozinha'], function(){
     ]);
 
 });
-///Rotas para liberar o cardapio/Reservar numero e liberar cardapio
+//Mostra o form de liberar o cardápio
 Route::get('liberar_cardapio', [
     'as' => 'liberar.cardapio',
     'uses' => 'MesaController@liberar_cardapio_form'
 ]);
-
+//Libera o cardápio
 Route::post('liberar_cardapio_form_post', [
     'as' => 'reservar.numero.form.post',
     'uses' => 'MesaController@liberar_cardapio_post'
@@ -173,6 +173,11 @@ Route::any('login_cliente','ClienteController@login_cliente');
 
 ///////////Rotas usuário do tipo cliente
 Route::group(['middleware'=>'Shoppvel\Http\Middleware\cliente'], function(){
+
+    Route::any('cliente/editar/{id}', [
+        'as' => 'cliente.editar',
+        'uses' => 'ClienteController@editar_infos'
+    ]);
 
     Route::get('logout_cliente/{id}','ClienteController@logout_cliente');
 

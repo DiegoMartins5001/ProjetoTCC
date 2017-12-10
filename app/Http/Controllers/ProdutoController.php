@@ -187,7 +187,7 @@ class ProdutoController extends Controller {
                 $produto->delete();
                 \Session::flash('mensagens-sucesso', 'Excluido com Sucesso');
                 return redirect()->action('ProdutoController@listar');
-            }elseif($itens == 1){
+            }elseif($itens >= 1){
                 return redirect()->back()->with('mensagens-danger','Não é possivel excluir este produto,pois esta relacionado a algum pedido');
             }else{
                 $path = 'uploads/'.$produto->imagem_nome;

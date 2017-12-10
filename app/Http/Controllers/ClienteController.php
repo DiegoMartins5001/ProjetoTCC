@@ -19,6 +19,31 @@ use Crypt;
 
 class ClienteController extends Controller {
 
+    public function editar_infos(Request $request,$id){
+        if($id != \Session::get('id_cliente')){
+            return redirect('cliente/dashboard');
+        }
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            $this->validate($request,[
+            'nome'=>'required|min:3',
+            'endereco'=>'required|min:5',
+            ],[
+                'nome.required'=>'É Nescessário Preeencher o Campo Nome',
+                'nome.min'=>'O Campo Nome não Pode ser Inferiror á 3 caracteres',
+                'endereco.required'=>'É Nescessário Preencher o Campo Endereço',
+                'endereco.min'=>'O Campo Endereço Não pode ser Inferiror 3 Caractares',
+            ]);
+            $cliente  = User::find($id);
+            $cliente->name = $request->input('nome');
+            $cliente->endereco = $request->input('endereco');
+            \Session::put('nome_cliente',$request->input('nome'));
+            $cliente->update();
+            return redirect('cliente/dashboard')->with('mensagens-sucesso','Atualizado com sucesso');
+        }
+        $cliente_edit = User::find($id);
+        return view('frente.cliente.editar_infos_form',['cliente'=>$cliente_edit]);
+    }
+
     public function getDashboard(){
         $id = \Session::get('id_cliente');
         $models['qtdePedidos']['total'] = Venda::where('user_id',$id)->count();

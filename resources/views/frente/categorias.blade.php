@@ -6,7 +6,7 @@
         Sub-Categoria
     </h2>
 </div>
-<div class="col-sm-6 col-md-4 col-xs-3">
+<div class="col-sm-6 col-md-4 col-sm-6 col-xs-3">
     <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"    aria-haspopup="true" aria-expanded="true">
         Sub-Categoria
         <span class="caret"></span>

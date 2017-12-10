@@ -13,7 +13,7 @@
     <div class="form-group">
         @if(!\Request::has('status'))
         @elseif($tipoVisao == 'Não Pagos')
-        <input id="1" type="hidden" name="status" value="nao-sdasdasdass">
+        <input id="1" type="hidden" name="status" value="nao-pagos">
         @elseif($tipoVisao == 'Pagos')
         <input id="2" type="hidden" name="status" value="pagos">
         @else
@@ -113,11 +113,11 @@
 
 {{ $pedidos->appends(["data_inicial" => $_REQUEST['data_inicial'], "data_final" => $_REQUEST['data_final']])->links() }}
 
-@elseif(\Request::has('status') == 'nao-pagos')
+@elseif($tipoVisao == 'Não Pagos')
 
 {{ $pedidos->appends(["status"=>'nao-pagos',"data_inicial" => $_REQUEST['data_inicial'], "data_final" => $_REQUEST['data_final']])->links() }}
 
-@elseif(\Request::has('status') == 'pagos')
+@elseif($tipoVisao == 'Pagos')
 
 {{ $pedidos->appends(["status"=>'pagos',"data_inicial" => $_REQUEST['data_inicial'], "data_final" => $_REQUEST['data_final']])->links() }}
 

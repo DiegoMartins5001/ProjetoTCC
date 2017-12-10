@@ -41,7 +41,7 @@
                     <p class='text-info text-center txt_andamen'><strong>Nenhum pedido em andamento  no momento</strong></p>
                     @else
                     <table id="andamento_pag" class="table table-responsive">
-                        <thead id="th_andamen">
+                        <thead class="tb_andamen">
                             <th>Pedido</th>
                             <th>Mesa</th>
                             <th></th>
@@ -204,8 +204,8 @@ $(function() {
                                             var tr = $('.pend').find('.'+id);
                                             $('.pendente').attr("class",'btn btn-info andamento');
                                             $('.andamento').text("Em Andamento");
-                                            if($(".and").size('')==0){
-                                                $(".andamen").append("<table style='display: block !important;' class='table table-responsive'>" + "<thead>" + "<th>" + 'Pedido' + "</th>"+ "<th>" + 'Mesa' + "</th>" + "<th>" +''+ "</th>" + "</thead>" + "<tbody class='and'>" + "</tbody" + "</table>");
+                                            if($(".and").length == 0){
+                                                $(".andamen").append("<table class='table table-responsive'>" + "<thead>" + "<th>" + 'Pedido' + "</th>"+ "<th>" + 'Mesa' + "</th>" + "<th>" +''+ "</th>" + "</thead>" + "<tbody class='and'>" + "</tbody" + "</table>");
                                                 $(".and").append(tr);
                                                 $(".txt_andamen").addClass('hidden');
                                                 $(".pend").find('.'+id).remove();
@@ -213,6 +213,8 @@ $(function() {
                                             }else{
                                                 $(".and").last().append(tr);
                                             }
+                                            //alert($('.pend').length);
+                                            
                                         } 
                                     },
                                 });
@@ -240,12 +242,12 @@ $(function() {
                                         var tr = $(".and").find('.'+id);
                                         $('.andamento').attr("class",'btn btn-success pronto');
                                         $('.pronto').text("Pronto");
-                                        if($(".pron").size('')==0){
-                                            $(".pronto_tab").append("<table style='display: block !important;' class='table table-responsive'>" + "<thead class='th_andamen'>" + "<th>" + 'Pedido' + "</th>"+ "<th>" + 'Mesa' + "</th>" + "<th>" + "</th>" + "</thead>" + "<tbody class='pront_din'>" + "</tbody>" + "</table>");
-                                            $(".pront_din").append(tr);
+                                        if($(".pron").length == 0){
+                                            $(".pronto_tab").append("<table class='table table-responsive'>" + "<thead class='tb_pront'>" + "<th>" + 'Pedido' + "</th>"+ "<th>" + 'Mesa' + "</th>" + "<th>" + "</th>" + "</thead>" + "<tbody class='pron'>" + "</tbody>" + "</table>");
+                                            $(".pron").append(tr);
                                             $(".txt_andamen").addClass('hidden');
                                             $(".pronto_texto").remove();
-                                            $(".primei").find('.'+id).remove();
+                                            //$(".primei").find('.'+id).remove();
                                         }else{
                                             $(".pron").last().append(tr);
                                         }   
@@ -290,11 +292,11 @@ $(function() {
                             $('.novos_pendente').removeClass('hidden');
                             $('.novos_pendente').attr('style', 'display: block !important');
                         }
-                        if($('.and').length == true){                         
+                        if($('.and').length == 0){                         
                             $('.txt_andamen').removeClass('hidden');
                             //$('#andamento_pag').removeClass('hidden');
                             //$('.tb_andamen').removeClass('hidden');
-                            $('.th_andamen').addClass('hidden');
+                            $('.tb_andamen').addClass('hidden');
                             //$('#tb_andamen').removeClass('hidden');
                             //$('.tab').addClass('hidden');
                             //$('.txt_pendente').removeClass('hidden');
@@ -302,7 +304,7 @@ $(function() {
                         $(".novos_pendente").append("<thead class='pendente_thead'>" + "<th>" + 'Pedido' + "</th>"+ "<th>" + 'Mesa' + "</th>" + "<th>" + "</th>" + "</thead>");
                         $.each(venda[0].venda,function(key, value){
 
-                            $(".novos_pendente").append("<tbody class='pend'>" +value.id_venda+ "<tr class="+value.id_venda+">" + "<td>" + value.id_venda + "</td>" + "<td>" + value.numero+ "</td>" + "<td>" + "<button class='btn btn-primary btn-xs detalhes' value='"+ value.id_venda+" ' data-toggle='modal' data-target='#myModal' onclick='zeraTime()'>" + 'Detalhes' + "</button>" + "</td>" + "</tr>" + "</tbody>");
+                            $(".novos_pendente").append("<tbody class='pend "+value.id_venda+"'>" +value.id_venda+ "<tr class="+value.id_venda+">" + "<td>" + value.id_venda + "</td>" + "<td>" + value.numero+ "</td>" + "<td>" + "<button class='btn btn-primary btn-xs detalhes' value='"+ value.id_venda+" ' data-toggle='modal' data-target='#myModal' onclick='zeraTime()'>" + 'Detalhes' + "</button>" + "</td>" + "</tr>" + "</tbody>");
                         });
                         $('.detalhes').on('click',function(){
                             
@@ -349,19 +351,7 @@ $(function() {
                                         $('.pendente').on("click",function(){
                                             var id = $(this).attr('value');
                                             //console.log($('.and'));
-                                            if($('.novos_pendente').length == true){
-                                                                                    
-                                                $('.txt_pendente').removeClass('hidden');
-                                                $('.novos_pendente').addClass('hidden');
-                                                $('.pendente_thead').addClass('hidden');
-                                                //$('.tab').addClass('hidden');
-                                                //$('.txt_pendente').removeClass('hidden');
-                                            }else{
-                                                $('.txt_pendente').addClass('hidden');
-                                                $('.novos_pendente').removeClass('hidden');
-                                                $('.novos_pendente').empty();
-                                                $('.novos_pendente').attr('style', 'display: block !important');
-                                            }
+                                            
                                             $.ajax({
                                                 type: "GET",
                                                 url: '{{route("status_muda_pendente")}}'+'/'+id,
@@ -374,46 +364,49 @@ $(function() {
                                                         var tr = $('.pend').find('.'+id);
                                                         $('.pendente').attr("class",'btn btn-info andamento');
                                                         $('.andamento').text("Em Andamento");
-                                                        if($(".and").size('')==0){
-                                                            $(".andamen").append("<table style='display: block !important;' class='table table-responsive'>" + "<thead class='tb_andamen'>" + "<th>" + 'Pedido' + "</th>"+ "<th>" + 'Mesa' + "</th>" + "<th>" +''+ "</th>" + "</thead>" + "<tbody class='and'>" + "</tbody" + "</table>");
+                                                        if($(".and").length == 0){
+                                                            $(".andamen").append("<table class='table table-responsive'>" + "<thead class='tb_andamen'>" + "<th>" + 'Pedido' + "</th>"+ "<th>" + 'Mesa' + "</th>" + "<th>" +''+ "</th>" + "</thead>" + "<tbody class='and'>" + "</tbody" + "</table>");
                                                             $(".and").append(tr);
                                                             $(".txt_andamen").addClass('hidden');
-                                                            $(".pend").find('.'+id).remove();
+                                                            $(".pend").remove('tbody:pend'+id);
                                                         // Caso já contenha um Pedido, somente adiciona-o na tabela
                                                         }else{
                                                             $(".and").last().append(tr);
                                                         }
                                                     }
-                                                    //TERMINAR TEXTOS 
-                                                    /*if($('.pend').length == false){
-                                                                                    
-                                                        $('.txt_pendente').removeClass('hidden');
-                                                        $('.novos_pendente').addClass('hidden');
-                                                        //$('.pendente_thead').addClass('hidden');
+                                                    //TERMINAR TEXTOS
+                                                    //alert($('.and').length);
+                                                    if($('.and').length == 0){                      
+                                                        $('.txt_andamen').removeClass('hidden');
+                                                        $('#andamento_pag').addClass('hidden');
+                                                        $('.tb_andamen').addClass('hidden');
                                                         //$('.tab').addClass('hidden');
                                                         //$('.txt_pendente').removeClass('hidden');
                                                     }else{
-                                                        $('.txt_pendente').addClass('hidden');
-                                                        $('.novos_pendente').removeClass('hidden');
-                                                        //$('.novos_pendente').empty();
-                                                        //$('.novos_pendente').attr('style', 'display: block !important');
-                                                    }*/
+                                                        $('.txt_andamen').addClass('hidden');
+                                                        $('#andamento_pag').removeClass('hidden');
+                                                        $('.tb_andamen').removeClass('hidden');
+                                                        //$('#andamento_pag').attr('style', 'display: block !important');
+                                                    }
                                                 },
                                             });
-                                            if($('.and').length == false){                      
-                                                $('.txt_andamen').removeClass('hidden');
-                                                $('#andamento_pag').addClass('hidden');
-                                                $('.tb_andamen').addClass('hidden');
-                                                $('#tb_andamen').addClass('hidden');
+                                            //alert($('tbody.pend').children().length);
+                                            if($('tbody.pend').children().length == 1){
+                                                $('.novos_pendente').removeAttr("style");
+                                                $('.txt_pendente').removeClass('hidden');
+                                                $('.novos_pendente').addClass('hidden');
+                                                $('.pendente_thead').addClass('hidden');
+                                                //$('.pendente_thead').addClass('hidden');
                                                 //$('.tab').addClass('hidden');
                                                 //$('.txt_pendente').removeClass('hidden');
                                             }else{
-                                                $('.txt_andamen').addClass('hidden');
-                                                $('#andamento_pag').removeClass('hidden');
-                                                $('.tb_andamen').removeClass('hidden');
-                                                $('#tb_andamen').removeClass('hidden');
-                                                //$('#andamento_pag').attr('style', 'display: block !important');
+                                                $('.txt_pendente').addClass('hidden');
+                                                $('.novos_pendente').removeClass('hidden');
+                                                $('.pendente_thead').removeClass('hidden');
+                                                //$('.novos_pendente').empty();
+                                                //$('.novos_pendente').attr('style', 'display: block !important');
                                             }
+                                        
                                         });
                                     });
                                     $(function(){
@@ -423,6 +416,10 @@ $(function() {
                                             }
                                         });
                                         $('.andamento').on("click",function(){
+                                            if($('.pron').length == 2){
+                                                console.log($('.pron').last('.pron').addClass('hidden'));
+                                                alert('Limite');
+                                            }
                                             var id = $(this).attr('value');
                                             $.ajax({
                                                 type: "GET",
@@ -433,47 +430,52 @@ $(function() {
                                                     var botao_classe = '';
 
                                                     if(status_pronto == 3){
-                                                        if($('.andamen').length == true){                         
+                                                        if($('tbody.and').length == 0){                         
                                                             $('.txt_andamen').removeClass('hidden');
                                                             $('#andamento_pag').addClass('hidden');
                                                             $('.tb_andamen').addClass('hidden');
-                                                            $('#tb_andamen').addClass('hidden');
                                                             //$('.tab').addClass('hidden');
                                                             //$('.txt_pendente').removeClass('hidden');
                                                         }else{
                                                             $('.txt_andamen').addClass('hidden');
                                                             $('#andamento_pag').removeClass('hidden');
                                                             $('.tb_andamen').removeClass('hidden');
-                                                            $('#tb_andamen').removeClass('hidden');
+                                                            
                                                             //$('#andamento_pag').attr('style', 'display: block !important');
                                                         }
+
+                                                        
                                                         var tr = $(".and").find('.'+id);
                                                         $('.andamento').attr("class",'btn btn-success pronto');
                                                         $('.pronto').text("Pronto");
-                                                        if($(".pron").size('')==0){
-                                                            $(".pronto_tab").append("<table style='display: block !important;' class='table table-responsive'>" + "<thead>" + "<th>" + 'Pedido' + "</th>"+ "<th>" + 'Mesa' + "</th>" + "<th>" + "</th>" + "</thead>" + "<tbody class='pront_din'>" + "</tbody>" + "</table>");
+                                                        if($(".pron").length ==0){
+                                                            $(".pronto_tab").append("<table class='table table-responsive'>" + "<thead>" + "<th>" + 'Pedido' + "</th>"+ "<th>" + 'Mesa' + "</th>" + "<th>" + "</th>" + "</thead>" + "<tbody class='pron'>" + "</tbody>" + "</table>");
                                                             $(".pront_din").append(tr);
                                 
                                                             $(".pronto_texto").remove();
-                                                            $(".primei").find('.'+id).remove();
+                                                            //$(".primei").find('.'+id).remove();
                                                         }else{
                                                             $(".pron").last().append(tr);
-                                                        }   
-                                                    }
-                                                    if($('.and').length == true){                         
+                                                        }
+                                                        //Verificação de se existe elemento no tbody
+                                                        //alert($('.and').length);
+                                                        if($('tbody.and').children().length == 0){
                                                             $('.txt_andamen').removeClass('hidden');
-                                                            $('#andamento_pag').addClass('hidden');
+                                                            $('.andamento').addClass('hidden');
+                                                            $('.th_andamen').addClass('hidden');
                                                             $('.tb_andamen').addClass('hidden');
-                                                            $('#tb_andamen').addClass('hidden');
+                                                            //$('.pendente_thead').addClass('hidden');
                                                             //$('.tab').addClass('hidden');
                                                             //$('.txt_pendente').removeClass('hidden');
                                                         }else{
                                                             $('.txt_andamen').addClass('hidden');
-                                                            $('#andamento_pag').removeClass('hidden');
+                                                            $('.andamen').removeClass('hidden');
+                                                            $('.th_andamen').removeClass('hidden');
                                                             $('.tb_andamen').removeClass('hidden');
-                                                            $('#tb_andamen').removeClass('hidden');
-                                                            //$('#andamento_pag').attr('style', 'display: block !important');
+                                                            //$('.novos_pendente').empty();
+                                                            //$('.novos_pendente').attr('style', 'display: block !important');
                                                         }
+                                                    }
                                                 },
                                             });
                                             

@@ -143,11 +143,11 @@ background-image: linear-gradient(45deg, rgba(235, 235, 235, 0.15) 25%, rgba(0, 
                         </div>
                         <div class="back">
                             <div class="caption">
-                                <img style='height:300px; width:300px;' src="{{asset('uploads/'.$produto_destacado->imagem_nome)}}" alt="{{$produto_destacado->imagem_nome}}">
+                                <img style='height:300px; width:350px;' src="{{asset('uploads/'.$produto_destacado->imagem_nome)}}" alt="{{$produto_destacado->imagem_nome}}">
                                 <div><h3>{{$produto_destacado->nome}}</h3></div>
                                 <h4 class="text-muted">{{$produto_destacado->marca->nome}}</h4>
-                                <p style="width: 200px;" class="col-xs-4">{{str_limit($produto_destacado->descricao,100)}}</p>
-                                <button type="button" class="btn btn-primary btn-lg getid" value='{{$produto_destacado->id}}' data-toggle="modal" data-target="#myModal">Mais Detalhes</button>
+                                <p style="width: 300px;" class="col-xs-4">{{str_limit($produto_destacado->descricao,100)}}</p>
+                                <button type="button" class="btn btn-primary btn-lg getid" value='{{$produto_destacado->id}}' data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Mais Detalhes</button>
                                 <h4>R$:{{$produto_destacado->preco_venda}}</h4>
                             </div>
                         </div>
@@ -179,7 +179,7 @@ background-image: linear-gradient(45deg, rgba(235, 235, 235, 0.15) 25%, rgba(0, 
                             <p class="card-text">{{str_limit($produto->descricao,100)}}</p>
                             <h4 class="card-text">R${{$produto->preco_venda}}</h4>
                         <!-- Trigger the modal with a button -->
-                            <button type="button" class="btn btn-primary btn-lg getid" value='{{$produto->id}}' data-toggle="modal" data-target="#myModal">Mais Detalhes</button>
+                            <button type="button" class="btn btn-primary btn-lg getid" value='{{$produto->id}}' data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Mais Detalhes</button>
                         </div>
                     </div>
                 </div>
@@ -203,7 +203,7 @@ background-image: linear-gradient(45deg, rgba(235, 235, 235, 0.15) 25%, rgba(0, 
                <p class='valor'></p>
                <img style='height:200px; width:200px;' class="imagem" />
                <div class='col-md-12'>
-               <p>Média de avaliações<p>
+               <p>Média de Avaliações<p>
                <h5 style="background-color:#2ecc71; border-radius:7px; height:30px; padding-top: 7px; color: black; font-weight: bold;" class="text-center avaliado col-md-3"><strong></strong>
                </h5>
                </div>
@@ -214,7 +214,7 @@ background-image: linear-gradient(45deg, rgba(235, 235, 235, 0.15) 25%, rgba(0, 
                 <input style="width: 60px; margin-right: 10px;" type="numeric" value="1" name="quant" class="col-xs-1 form-control text-center quant" autocomplete="off">
                 <br/>
                 <br/>
-                <button type="submit" name="botao" value="" class="btn btn-primary btn-lg  pull-left add_carrinho" > Adicionar ao carrinho</button>
+                <button type="submit" name="botao" value="" class="btn btn-primary btn-lg  pull-left col-md-5 col-sm-3 col-xs-8 add_carrinho"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Adicionar ao Carrinho</button>
             <button type="button" class="btn btn-default  pull-right" data-dismiss="modal">Fechar</button>
             </form>
         </div>
@@ -240,7 +240,7 @@ background-image: linear-gradient(45deg, rgba(235, 235, 235, 0.15) 25%, rgba(0, 
                         <th class="text-right">Preço Unitário</th>
                         <th>Quantidade</th>
                         <th></th>
-                        <th><a style="font-weight: bold;" href="{{route('carrinho.esvaziar')}}" class='btn btn-warning btn-sm'>Esvaziar Carrinho</a></th>
+                        <th><a href="{{route('carrinho.esvaziar')}}" class='btn btn-warning btn-sm'><span class="glyphicon glyphicon-trash"></span> Esvaziar Carrinho</a></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -255,7 +255,7 @@ background-image: linear-gradient(45deg, rgba(235, 235, 235, 0.15) 25%, rgba(0, 
                         <td class="text-center">
                             {{number_format($item->produto->preco_venda, 2, ',', '.')}}
                         </td>
-                        <td class="text-center quant_item col-md-6 col-sm-6 col-xs-5"> 
+                        <td class="text-center quant_item col-md-7 col-sm-6 col-xs-5"> 
                              <input style="width: 27px; height: 25px; margin-right: 1px; margin-top: 10px;" type="numeric" value="{{$item->qtde}}" name="quant" disabled class="col-sm-1 col-xs-1 form-control btn-xs text-center quant">
                                 
                                 <!--<button style="margin-right: 2px; margin-left: 1px; width: 10px; text-indent: -3px;" class="btn btn-primary btn-sm col-md-2 col-sm-2 col-xs-2 increment" type="submit" value="{{$item->produto->id}}">+</button>-->
@@ -269,7 +269,7 @@ background-image: linear-gradient(45deg, rgba(235, 235, 235, 0.15) 25%, rgba(0, 
                         </td>
                         <td> 
                         <a href="{{route('remover', $item->produto->id, $item->qtde)}}" 
-                                style="margin-bottom: 3px; margin-right: 15px; font-weight: bold;" class="btn btn-danger btn-xs pull-right">Excluir item</a>
+                                style="margin-bottom: 3px;" class="btn btn-danger btn-xs pull-right"><span class="glyphicon glyphicon-remove"></span> Excluir item</a>
                         </td>
                     </tr>
                     @endforeach
@@ -290,7 +290,7 @@ background-image: linear-gradient(45deg, rgba(235, 235, 235, 0.15) 25%, rgba(0, 
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default  pull-right" data-dismiss="modal">Fechar</button>
-                <button type="submit" style="font-weight: bold;" name="botao" class="btn btn-primary btn-lg pull-left add_carrinho" ><span class="glyphicon glyphicon-shopping-cart"></span> Confirmar Pedido</button>
+                <button type="submit" name="botao" class="btn btn-primary btn-lg pull-left add_carrinho" ><span class="glyphicon glyphicon-ok"></span> Confirmar Pedido</button>
           </div>
         </div>
       </div>
@@ -443,7 +443,7 @@ $(function() {
 <script src="{{asset('bootstrap/js/jquery.min.js')}}"></script>
 <script type="text/javascript">
 $(document).ready(function () {
-    $('#pag_cartao').hide();
+    $('#cardapio_produtos').hide();
    $('input[name="menu"]').click(function () {
     if($('input[name="menu"]:checked').val() == '1') {
         prod_destaque();

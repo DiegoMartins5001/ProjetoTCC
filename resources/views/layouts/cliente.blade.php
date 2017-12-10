@@ -71,6 +71,11 @@
                             </a>
                         </li>
                         <li class="list-group-item">
+                            <a href="{{route('cliente.editar',\Session::get('id_cliente'))}}">
+                                Editar minhas informações
+                            </a>
+                        </li>
+                        <li class="list-group-item">
                             <a href="{{url('logout_cliente',\Session::get('id_cliente'))}}">
                                 Logout
                             </a>

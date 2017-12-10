@@ -25,7 +25,6 @@
     </thead>
     <tbody>
         @foreach($produtos as $produto)
-
         <tr>
             <td>
                 <img src="{{asset('uploads/'.$produto->imagem_nome)}}" alt="{{$produto->imagem_nome}}" style="width:150px;" >
@@ -37,14 +36,12 @@
                 {{number_format($produto->preco_venda, 2, ',', '.')}}
             </td>
             <td class="text-right">
-                <button data-toggle="modal" data-target="#myModal" value="{{$produto->id}}" class='btn btn-primary getid'>Mais detalhes</button>
+                <button data-toggle="modal" data-target="#myModal" value="{{$produto->id}}" class='btn btn-primary getid'><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Mais detalhes</button>
             </td>
         </tr>
         @endforeach
     </tbody>
 </table>
-
-
 <div id="myModal" class="modal fade" role="dialog">
       <div class="modal-dialog">
 
@@ -60,29 +57,26 @@
                <img style='height:200px; width:200px;' class="imagem" />
                <div class='col-md-12'>
                <p>Média de avaliações<p>
-               <h5 class="alert alert-success text-center avaliado col-md-3"><strong></strong>
+               <h5 style="background-color:#2ecc71; border-radius:7px; height:30px; padding-top: 7px; color: black; font-weight: bold;" class="text-center avaliado col-md-3"><strong></strong>
                </h5>
                </div>
             <form class="action_carrinho"  action="{{route('adicionar')}}">
           </div>
           <div class="modal-footer">
-                <p class='text-left' >Quantidade</p>
-                <input type="numeric" value='1' name='quant' class="col-sm-2">
-                <br/>
-                <br/>
-               <button type="submit" name="botao" value="@if(isset($produto->id)){{$produto->id}} @endif" class="btn btn-primary btn-lg  pull-left add_carrinho" > Adicionar ao carrinho</button>
-            <button type="button" class="btn btn-default  pull-right" data-dismiss="modal">Fechar</button>
+              <p class='text-left' >Quantidade</p>
+              <input style="width: 60px; margin-right: 10px;" type="numeric" value="1" name="quant" class="col-xs-1 form-control text-center quant" autocomplete="off">
+              <br/>
+              <br/>
+               <button type="submit" name="botao" value="@if(isset($produto->id)){{$produto->id}} @endif" class="btn btn-primary btn-lg  pull-left add_carrinho"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Adicionar ao carrinho</button>
+              <button type="button" class="btn btn-default  pull-right" data-dismiss="modal">Fechar</button>
             </form>
           </div>
         </div>
-
       </div>
     </div>
-
-
-<div class="col-sm-12 text-center">
-    {!! $produtos->links() !!}
-</div>
+    <div class="col-sm-12 text-center">
+      {!! $produtos->links() !!}
+    </div>
 <script src="{{asset('bootstrap/js/jquery.min.js')}}"></script>
 <script type="text/javascript">
 $(function() {

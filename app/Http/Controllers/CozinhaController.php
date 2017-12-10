@@ -44,7 +44,7 @@ class CozinhaController extends Controller{
     public function Paginacao(){
         $pendente = Venda::where('status',1)->where('data_venda',$data_hoje)->paginate(1);
         $andamento = Venda::where('status',2)->where('data_venda',$data_hoje)->paginate(1);
-        $prontos = Venda::where('status',3)->where('data_venda',$data_hoje)->paginate(1);
+        $prontos = Venda::where('status',3)->where('data_venda',$data_hoje)->lists(1)->get();
         return Response::json(array(["pendente"=>$pendente,"andamento"=>$andamento,"prontos"=>$prontos]));
     }
 	public function getPendentes(Request $request){
@@ -115,7 +115,7 @@ class CozinhaController extends Controller{
         $pedido->status = 2;
         $pedido->save();
         
-        return redirect('pedidos_andamento')->with('mensagens-sucesso', 'Status alterado com sucesso');
+        return redirect()->back()->with('mensagens-sucesso', 'Status alterado com sucesso');
     }
     public function putMudaPendente($id){
         $pedido = Venda::find($id);
@@ -151,7 +151,7 @@ class CozinhaController extends Controller{
         $pedido->status = 3;
         $pedido->save();
         
-        return redirect('pedidos_pronto')->with('mensagens-sucesso', 'Status alterado com sucesso');
+        return redirect()->back()->with('mensagens-sucesso', 'Status alterado com sucesso');
     }
     public function getItensPedidoPendentes($id){
         

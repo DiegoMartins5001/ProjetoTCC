@@ -76,7 +76,7 @@
         <tbody>
             @foreach($venda as $pedido)
             <tr> 
-                <td>{{$pedido->data_venda->format('d/m/Y : H:i')}}</td>
+                <td>{{$pedido->created_at->format('d/m/Y : H:i:s')}}</td>
                 <td>
                     {{$pedido->id_venda}}
                 </td>  

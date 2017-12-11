@@ -1,12 +1,31 @@
-@extends('layouts.cliente')
-
-@section('conteudo')
+@include('layouts.cliente_header')
+<style>
+.panel-danger > .panel-heading{
+    background-color:#e67e22;
+    border-color:#e67e22;
+    color:white;
+}
+.panel-danger {
+    border-color:#e67e22;
+}
+.text-info {
+    color: #e67e22;
+}
+</style>
+   <br/>   
+    <div class="col-lg-12">
+    <div class="container">
+          @include('layouts.messages')
+    </div>
+  </div>
+  <br/>
+  <br/>
 <h2>Painel de controle - {{\Session::get('nome_cliente')}}</h3>
-
+<br/>
 <div class="container">
     <div class="row">
-        <div class="col-sm-4 col-sm-offset-1">
-            <div class="panel panel-info">
+        <div class="col-sm-5 col-sm-offset-1">
+            <div class="panel panel-danger">
                 <div class="panel-heading">
                     <h3 class="text-center">Total de pedidos</h3>
                 </div>
@@ -17,7 +36,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-5">
             <div class="panel panel-danger">
                 <div class="panel-heading">
                     <h3 class="text-center">Pendentes de pagamento</h3>
@@ -31,8 +50,8 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-4 col-sm-offset-1">
-            <div class="panel panel-warning">
+        <div class="col-sm-5 col-sm-offset-1">
+            <div class="panel panel-danger">
                 <div class="panel-heading">
                     <h3 class="text-center">Pagos</h3>
                 </div>
@@ -43,8 +62,8 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-4 ">
-            <div class="panel panel-success">
+        <div class="col-sm-5 ">
+            <div class="panel panel-danger">
                 <div class="panel-heading">
                     <h3 class="text-center">Finalizados</h3>
                 </div>
@@ -57,5 +76,3 @@
         </div>
     </div>
 </div>
-
-@stop

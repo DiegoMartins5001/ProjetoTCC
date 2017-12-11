@@ -50,9 +50,9 @@ class AdminController extends Controller {
     
     public function getDashboard() {
             $models['qtdePedidos']['total'] = Venda::count();
-            $models['qtdePedidos']['pendentes-pagamento'] = Venda::naoPagas()->count();
-            $models['qtdePedidos']['pagos'] = Venda::pagas()->count();
-            $models['qtdePedidos']['finalizados'] = Venda::finalizadas()->count();
+            $models['qtdePedidos']['pendentes-pagamento'] = Venda::where('pago',0)->where('status',3)->count();
+            $models['qtdePedidos']['pagos'] = Venda::where('pago',1)->where('status',3)->count();
+            $models['qtdePedidos']['finalizados'] =Venda::where('enviado',1)->where('status',3)->count();
             return view('admin.dashboard', $models);    
             
     }
@@ -78,7 +78,7 @@ class AdminController extends Controller {
                     'data_final.date_format'=>'O Formato da Data deve ser dia/mes/ano',
                 ]);
                 
-                $models['pedidos'] = Venda::orderBy('data_venda','ASC')->where('data_venda','>=',$req->input('data_inicial'))->where('data_venda','<=',$req->input('data_final'))->where('status',3)->paginate(10);
+                $models['pedidos'] = Venda::orderBy('data_venda','ASC')->where('data_venda','>=',$req->input('data_inicial'))->where('data_venda','<=',$req->input('data_final'))->paginate(10);
                 }
             }elseif($req->status == 'nao-pagos'){
                     $models['tipoVisao'] = 'Não Pagos';
@@ -97,7 +97,7 @@ class AdminController extends Controller {
                         $data_final =   str_replace(' ', '', $req->input('data_final'));
                         $req->status = $req->input('status');
                         if($data_inicial != '' AND $data_final != ''){
-                        $models['pedidos'] = Venda::where('pago',null)->orderBy('data_venda','ASC')->where('data_venda','>=',$data_inicial)
+                        $models['pedidos'] = Venda::where('pago',0)->orderBy('data_venda','ASC')->where('data_venda','>=',$data_inicial)
                     ->where('data_venda','<=',$data_final)->where('status',3)->paginate(10);
                         }
 

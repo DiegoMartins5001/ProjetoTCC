@@ -3,6 +3,7 @@
 @section('cozinha')
 <div class="containar">
 <h2>Pedido numero  {{$venda->id_venda}}</h2>
+<div class="container">
 <table class="table table-striped">
     <thead>
         <tr>
@@ -15,7 +16,7 @@
     <tbody>
         <tr>
             <td>
-                {{$venda->data_venda->format('d/m/Y : H:i')}}
+                {{$venda->created_at->format('d/m/Y : H:i:s')}}
             </td>
             <td>
                 {{$venda->mesa->numero}}
@@ -71,5 +72,6 @@
         @endforeach
     </tbody>
 </table>
+</div>
 </div>
 @stop

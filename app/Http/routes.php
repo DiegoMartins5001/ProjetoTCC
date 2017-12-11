@@ -42,7 +42,7 @@ Route::get('categoria/{id?}', [
  * para funcionar
  */
 //busca de produto na mesa
-Route::any('produto/buscar', [
+Route::get('produto/buscar', [
     'as' => 'produto.buscar',
     'uses' => 'ProdutoController@getBuscar'
 ]);

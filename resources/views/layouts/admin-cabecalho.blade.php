@@ -4,7 +4,7 @@
 <script src="{{asset('bootstrap/js/jquery.min.js')}}"></script>
 
 
-<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div  class="navbar navbar-inverse navbar-fixed-top" style="padding-bottom: 1px; background-color:#5D4B33;" role="navigation">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -17,7 +17,7 @@
         </div>
         <div class="navbar-collapse collapse navbar-right">
           <ul class="nav navbar-nav">
-                <li class="active"><a href="{{route('admin.dashboard')}}">Home</a></li>
+                <li><a href="{{route('admin.dashboard')}}">Home</a></li>
                 <!--<li><a href="{{route('admin.pedidos')}}">Pedidos</a></li> deixei comentado pq nos menus laterais ja tem os links de cada status dos pedidos-->
                 @if(session('admin') != '')
                 <li><a href="{{route('admin.categoria.listar')}}">Categorias</a></li>

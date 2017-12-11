@@ -1,25 +1,141 @@
-@extends('layouts.frente-loja')
+@include('layouts.cardapio_header_novo')
+<style>
+/*Author: Kosmom.ru*/.loading,.loading>td,.loading>th,.nav li.loading.active>a,.pagination li.loading,.pagination>li.active.loading>a,.pager>li.loading>a{
+    background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));
+    background-size: 40px 40px;
+animation: 2s linear 0s normal none infinite progress-bar-stripes;
+-webkit-animation: progress-bar-stripes 2s linear infinite;
+}
+.btn.btn-default.loading,input[type="text"].loading,select.loading,textarea.loading,.well.loading,.list-group-item.loading,.pagination>li.active.loading>a,.pager>li.loading>a{
+background-image: linear-gradient(45deg, rgba(235, 235, 235, 0.15) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(235, 235, 235, 0.15) 50%, rgba(235, 235, 235, 0.15) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));
+}
+.btn3d {
+    position:relative;
+    top: -6px;
+    border:0;
+     transition: all 40ms linear;
+     margin-top:10px;
+     margin-bottom:10px;
+     margin-left:2px;
+     margin-right:2px;
+}
+.btn3d:active:focus,
+.btn3d:focus:hover,
+.btn3d:focus {
+    -moz-outline-style:none;
+         outline:medium none;
+}
+.btn3d:active, .btn3d.active {
+    top:2px;
+}
+.btn3d.btn-white {
+    color: #666666;
+    box-shadow:0 0 0 1px #ebebeb inset, 0 0 0 2px rgba(255,255,255,0.10) inset, 0 8px 0 0 #f5f5f5, 0 8px 8px 1px rgba(0,0,0,.2);
+    background-color:#fff;
+}
+.btn3d.btn-white:active, .btn3d.btn-white.active {
+    color: #666666;
+    box-shadow:0 0 0 1px #ebebeb inset, 0 0 0 1px rgba(255,255,255,0.15) inset, 0 1px 3px 1px rgba(0,0,0,.1);
+    background-color:#fff;
+}
+.btn3d.btn-default {
+    color: #666666;
+    box-shadow:0 0 0 1px #ebebeb inset, 0 0 0 2px rgba(255,255,255,0.10) inset, 0 8px 0 0 #BEBEBE, 0 8px 8px 1px rgba(0,0,0,.2);
+    background-color:#f9f9f9;
+}
+.btn3d.btn-default:active, .btn3d.btn-default.active {
+    color: #666666;
+    box-shadow:0 0 0 1px #ebebeb inset, 0 0 0 1px rgba(255,255,255,0.15) inset, 0 1px 3px 1px rgba(0,0,0,.1);
+    background-color:#f9f9f9;
+}
+.btn3d.btn-primary {
+    box-shadow:0 0 0 1px #417fbd inset, 0 0 0 2px rgba(255,255,255,0.15) inset, 0 8px 0 0 #4D5BBE, 0 8px 8px 1px rgba(0,0,0,0.5);
+    background-color:#4274D7;
+}
+.btn3d.btn-primary:active, .btn3d.btn-primary.active {
+    box-shadow:0 0 0 1px #417fbd inset, 0 0 0 1px rgba(255,255,255,0.15) inset, 0 1px 3px 1px rgba(0,0,0,0.3);
+    background-color:#4274D7;
+}
+.btn3d.btn-success {
+    box-shadow:0 0 0 1px #31c300 inset, 0 0 0 2px rgba(255,255,255,0.15) inset, 0 8px 0 0 #5eb924, 0 8px 8px 1px rgba(0,0,0,0.5);
+    background-color:#78d739;
+}
+.btn3d.btn-success:active, .btn3d.btn-success.active {
+    box-shadow:0 0 0 1px #30cd00 inset, 0 0 0 1px rgba(255,255,255,0.15) inset, 0 1px 3px 1px rgba(0,0,0,0.3);
+    background-color: #78d739;
+}
+.btn3d.btn-info {
+    box-shadow:0 0 0 1px #00a5c3 inset, 0 0 0 2px rgba(255,255,255,0.15) inset, 0 8px 0 0 #348FD2, 0 8px 8px 1px rgba(0,0,0,0.5);
+    background-color:#39B3D7;
+}
+.btn3d.btn-info:active, .btn3d.btn-info.active {
+    box-shadow:0 0 0 1px #00a5c3 inset, 0 0 0 1px rgba(255,255,255,0.15) inset, 0 1px 3px 1px rgba(0,0,0,0.3);
+    background-color: #39B3D7;
+}
+.btn3d.btn-warning {
+    box-shadow:0 0 0 1px #d79a47 inset, 0 0 0 2px rgba(255,255,255,0.15) inset, 0 8px 0 0 #D79A34, 0 8px 8px 1px rgba(0,0,0,0.5);
+    background-color:#FEAF20;
+}
+.btn3d.btn-warning:active, .btn3d.btn-warning.active {
+    box-shadow:0 0 0 1px #d79a47 inset, 0 0 0 1px rgba(255,255,255,0.15) inset, 0 1px 3px 1px rgba(0,0,0,0.3);
+    background-color: #FEAF20;
+}
+.btn3d.btn-danger {
+    box-shadow:0 0 0 1px #b93802 inset, 0 0 0 2px rgba(255,255,255,0.15) inset, 0 8px 0 0 #AA0000, 0 8px 8px 1px rgba(0,0,0,0.5);
+    background-color:#D73814;
+}
+.btn3d.btn-danger:active, .btn3d.btn-danger.active {
+    box-shadow:0 0 0 1px #b93802 inset, 0 0 0 1px rgba(255,255,255,0.15) inset, 0 1px 3px 1px rgba(0,0,0,0.3);
+    background-color: #D73814;
+}
+.btn3d.btn-magick {
+    color: #fff;
+    box-shadow:0 0 0 1px #9a00cd inset, 0 0 0 2px rgba(255,255,255,0.15) inset, 0 8px 0 0 #9823d5, 0 8px 8px 1px rgba(0,0,0,0.5);
+    background-color:#bb39d7;
+}
+.btn3d.btn-magick:active, .btn3d.btn-magick.active {
+    box-shadow:0 0 0 1px #9a00cd inset, 0 0 0 1px rgba(255,255,255,0.15) inset, 0 1px 3px 1px rgba(0,0,0,0.3);
+    background-color: #bb39d7;
+}
 
-@section('conteudo')
+</style>
+<br/>
+<div class="col-lg-12">
+    <div class="container">
+        @include('layouts.messages')
+    </div>
+</div>
 <div class='col-sm-12'>
-    <h2 class="page-header text-info">
+    <h2 class="page-header">
         Produtos da categoria {{$categoria->nome}}
     </h2>
 </div>
 @foreach ($categoria->produtos as $produto)
-<div class="col-sm-6 col-md-4">
-    <div class="thumbnail">
-        <!-- atributo data-lightbox para o plugin lightbox -->
-        <img src="{{asset('uploads/'.$produto->imagem_nome)}}" data-lightbox="roadtrip">
-        <div class="caption">
-            <h3>{{$produto->nome}}</h3>
-            <h4 class="text-muted">{{$produto->marca->nome}}</h4>
-            <p>{{str_limit($produto->descricao,100)}}</p>
-            <p><button type="button" class="btn btn-primary btn-lg getid" value='{{$produto->id}}' data-toggle="modal" data-target="#myModal">Mais Detalhes</button></p>
+<div class="col-md-4">
+        <div class='row'>
+            <div class="flip" style="margin-bottom: 30px;">
+                <div class="front">
+                    <h5 class="text-warning" >Imagem Meramente Ilustrativa</h5>
+                    <img style='margin-left:105px; height:200px; width:200px;' src="{{asset('uploads/'.$produto->imagem_nome)}}" alt="">
+                    <a style="width:100%;" class='btn btn-warning btn-lg btn-block loading disabled'>Clique Aqui Para Mais Detalhes</a>
+
+                </div>
+                <div class="back">
+                    <img style='margin-left:90px;  height:300px; width:300px;' src="{{asset('uploads/'.$produto->imagem_nome)}}" alt="">
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            {{$produto->nome}}
+                        </h4>
+                        <p class="card-text">{{str_limit($produto->descricao,100)}}</p>
+                        <h4 class="card-text">R${{$produto->preco_venda}}</h4>
+                    <!-- Trigger the modal with a button -->
+                        <button type="button" class="btn btn-warning btn-lg getid" value='{{$produto->id}}' data-toggle="modal" data-target="#myModal">Mais Detalhes</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-
+@endforeach
     <!-- Modal -->
 <div id="myModal" class="modal fade" role="dialog">
   <div class="modal-dialog">
@@ -36,7 +152,7 @@
                <img style='height:200px; width:200px;' class="imagem" />
                <div class='col-md-12'>
                <p>Média de avaliações<p>
-               <h5 class="alert alert-success text-center avaliado col-md-3"><strong></strong>
+               <h5 style="background-color:#2ecc71; border-radius:7px; height:30px; padding-top:7px; color:black; font-weight:bold;" class="text-center avaliado col-md-3"><strong></strong>
                </h5>
                </div>
         <form class="action_carrinho"  action="{{route('adicionar')}}">
@@ -53,8 +169,94 @@
     </div>
   </div>
 </div>
+ <!-- Modal carrinho -->
+    <div id="carrinho_id" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Carrinho</h4>
+          </div>
+          <div class="modal-body">
+            <table style="display: block !important;" class="table table-responsive">
+                <thead>
+                    <tr>
+                        <th>Imagem</th>
+                        <th>Produto</th>
+                        <th class="text-right">Preço Unitário</th>
+                        <th>Quantidade</th>
+                        <th></th>
+                        <th><a href="{{route('carrinho.esvaziar')}}" class='btn btn-warning btn-sm'>Esvaziar carrinho</a></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($itens as $item)
+                    <tr>
+                        <td>
+                            <img src="{{asset('uploads/'.$item->produto->imagem_nome)}}" alt="{{$item->produto->imagem_nome}}" data-lightbox="roadtrip" style="width:70px;" >
+                        </td>
+                        <td>
+                            {{$item->produto->nome}}
+                        </td>
+                        <td class="text-center">
+                            {{number_format($item->produto->preco_venda, 2, ',', '.')}}
+                        </td>
+                        <td class="text-center quant_item col-md-6 col-sm-6 col-xs-5"> 
+                           <input style="width: 27px; height: 25px; margin-right: 1px; margin-top: 10px;" type="numeric" value="{{$item->qtde}}" name="quant" disabled class="col-sm-1 col-xs-1 form-control btn-xs text-center quant">
+                                
+                                <!--<button style="margin-right: 2px; margin-left: 1px; width: 10px; text-indent: -3px;" class="btn btn-primary btn-sm col-md-2 col-sm-2 col-xs-2 increment" type="submit" value="{{$item->produto->id}}">+</button>-->
 
-<script src="{{asset('bootstrap/js/jquery.min.js')}}"></script>
+                                <button style="text-indent: -5px; margin-bottom: 10px; padding-left: 14px; padding-right: 5px; margin-top: 15px;" type="button" value="{{$item->produto->id}}" name="teste" class="btn-xs btn-warning btn-sm-1 col-md-1 col-xs-1 btn-xs-1 col-sm-offset--1 btn3d increment"><span class="glyphicon glyphicon-plus"></span></button>
+
+                                <button style="text-indent: -5.5px; margin-bottom: 10px; padding-left: 14px; padding-right: 5px; margin-top: 15px;" type="button" value="{{$item->produto->id}}" name="teste" class="btn-xs btn-warning btn-sm-1 col-md-1 col-xs-1 btn-xs-1 btn3d decrement"><span class="fa fa-btn fa-minus"></span></button>
+
+                                <!--<button style="text-indent: -3px;" name="teste" class="btn btn-primary btn-sm col-md-1 col-sm-1 col-xs-1 decrement" type="submit" value="{{$item->produto->id}}"> - </button>-->
+                        </td>
+                        <td> 
+                        <a href="{{route('remover', $item->produto->id, $item->qtde)}}" 
+                                style="margin-bottom: 3px; margin-right: 15px;" class="btn btn-danger btn-xs pull-right">Excluir item</a>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3" class="text-right">
+                            Total
+                        </td>
+                        <td>
+                            <h4  id="total" class="text-center text-danger total">
+                                R${{number_format($total,2,',','.')}}
+                            </h4>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default  pull-right" data-dismiss="modal">Fechar</button>
+                <button type="submit" name="botao" class="btn btn-danger btn-lg  pull-left add_carrinho" > Confirmar pedido</button>
+          </div>
+        </div>
+      </div>
+    </div>
+<!-- Code of Jquery Plugin Flip Image-->
+<script src="{{asset('bootstrap/js/jquery-2.1.4.min.js')}}"></script>
+<script src="{{asset('bootstrap/js/flip.min.js')}}"></script>
+<script type="text/javascript">
+    $(function(){
+    $(".flip").flip({
+        axis: 'x',
+        trigger: 'click'
+    });
+    $(".teste").flip({
+        axis: 'x',
+        trigger: 'click'
+    });
+});
+</script>
+<!-- End Code -->
 <script type="text/javascript">
 $(function() {
     $.ajaxSetup({
@@ -80,7 +282,7 @@ $(function() {
                 }else{
                   $('.avaliado').html(avaliado.toFixed(2));
                 }
-                //console.log(id);
+                console.log(id);
                 //console.log($('.add_carrinho').val());
                 //console.log(id.id);
                 },
@@ -89,5 +291,118 @@ $(function() {
         });
 });
 </script>
-@endforeach
-@stop
+
+<!-- Increment -->
+
+<script type="text/javascript">
+$(function() {
+    $.ajaxSetup({
+        headers:{
+            'X-CSRF-Token':$('input[name="_token"]').val()
+        }
+    });
+        $('.increment').on("click",function(){
+            var id = $(this).attr('value');
+            
+            //console.log($(".total").text());
+            //var qtde = $('.quant').attr('value');
+            //alert(qtde);
+            //console.log(id);
+            $.ajax({
+                type: "GET",
+                url: 'http://localhost:8000/increment_teste/'+id,
+                data: {id : id},
+                success: function(total) {
+                //console.log(total);
+                $('.total').html('R$'+total);   
+                $(this).next().prop('disabled', false);
+                var load = $(this).next().load('disabled', false);
+                //$('.total').load().val(); carrega valor 
+                //$('.increment').html(id.id);
+                //console.log(total);
+                //console.log(id.id);
+                //console.log($('.add_carrinho').val());
+                //console.log(id.id);
+                },
+            });
+            
+        });
+});
+</script>
+<!-- Decrement -->
+<script type="text/javascript">
+$(function() {
+    $.ajaxSetup({
+        headers:{
+            'X-CSRF-Token':$('input[name="_token"]').val()
+        }
+    });
+        $('.decrement').on("click",function(){
+            var id = $(this).attr('value');
+            //console.log($(this).parent().parent().parent().next().children().children().next().children().html()); acessa valor por Jquery metodo navegação por tag
+            //var qtde = $('.quant').attr('value');
+            //alert(qtde);
+            //console.log(id);
+            if($(this).prev().prev().val()<2){
+            $(this).prop('disabled', true);
+            }
+            $.ajax({
+                type: "GET",
+                url: 'http://localhost:8000/decrement_teste/'+id,
+                data: {id : id},
+                success: function(total) {
+                $('.total').html('R$'+total);
+                //$('.total').load().text();
+                //$('.increment').html(id.id);
+                //console.log(total);
+                //console.log(id.id);
+                //console.log($('.add_carrinho').val());
+                //console.log(id.id);
+                },
+            });
+            
+        });
+});
+</script>
+
+
+<script type="text/javascript">
+$(function() {
+    
+        $('.add_carrinho').click(function(){
+            window.location.href =  "http://localhost:8000/finalizar_cardapio/";    
+            
+        });
+});
+</script>
+<script>
+//////////////incrementaçao btn
+    $(".increment").on('click',function(){
+        var value = $('.quant').val();
+        $(this).prev().val(parseInt($(this).prev().val())+1); return false;
+    });
+    $(".increment").on('click',function(){
+      if($(this).prev().val()<2){
+            $(this).next().prop('disabled', true);
+        }
+        
+    });
+    $(".increment").on('click',function(){
+      if($(this).prev().val()>1){
+            $(this).next().prop('disabled', false);
+        }
+        
+    });
+//////////////decrementação btn
+    $(".decrement").on('click',function(){
+        if($(this).prev().prev().val()!=0){
+            $(this).prev().prev().val(parseInt($(this).prev().prev().val())-1);
+        }
+    });
+//////////////disable on click btn decrement
+    $(".decrement").on('click',function(){
+        if($(this).prev().prev().val()<2){
+            $(this).prop('disabled', true);
+        }
+    });
+</script>

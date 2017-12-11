@@ -8,8 +8,15 @@ use Shoppvel\Models\Categoria;
 use Shoppvel\Http\Requests\CategoriaRequest;
 use Shoppvel\Http\Requests\CategoriaFormRequest;
 use Shoppvel\Http\Requests\CategoriaUpdateRequest;
+use Shoppvel\Models\Carrinho;
 
 class CategoriaController extends Controller {
+    private $carrinho = null;
+
+    function __construct() {
+        parent::__construct();
+        $this->carrinho = new Carrinho();
+    }
 
     public function getCategoria($id = null) {
         if ($id == null) {
@@ -20,7 +27,8 @@ class CategoriaController extends Controller {
         
         // se um id foi passado
         $models['categoria'] = \Shoppvel\Models\Categoria::find($id);
-        //dd($models['categoria']);
+        $models['itens'] =  $this->carrinho->getItens();
+        $models['total'] =  $this->carrinho->getTotal();
         return view('frente.produtos-categoria', $models);
     }
 

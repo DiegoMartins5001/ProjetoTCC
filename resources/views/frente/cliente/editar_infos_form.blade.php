@@ -1,8 +1,28 @@
-@extends('layouts.cliente')
+@include('layouts.cliente_header')
+<style>
+.panel-info > .panel-heading{
+    background-color:#e67e22;
+    border-color:#e67e22;
+    color:white;
+}
+.panel-info {
+    border-color:#e67e22;
+}
+.text-info {
+    color: #e67e22;
+}
+.btn-info{
+  background-color:#e67e22;
+  border-color:#e67e22;
+}
 
-@section('conteudo')
-    <div class="col-md-12">
-        <div class="panel panel-info">
+.btn-info:hover{
+  background-color:#d35400;
+  border-color:#d35400;
+}
+</style>
+    <div class="container">
+        <div style="margin-top:30px;" class="panel panel-info">
             <div class="panel-heading"><strong>Editar minhas informações</strong></div>
             <div class="panel-body">
                 <div class='container'>
@@ -46,4 +66,3 @@
             </div>
         </div>
     </div>
-@stop

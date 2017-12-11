@@ -462,7 +462,7 @@ $(function() {
                                             
                                         });
                                     });
-                                    //$('.itens').children().remove();
+                                    $('.itens').children().remove();
                                     $.each(itens[0]['itens'],function(key, value){
                                     
                                     $('.itens').append("<tr class='tabela_item'>" + "<td>" + "<img style='width: 50px;' src='/uploads/"+ value.imagem_nome +"' data-lightbox='roadtrip'/>" + "</td>" +"<td>" + value.nome +  "</td>" + "<td>" + value.qtde + "</td>" + "</tr>");

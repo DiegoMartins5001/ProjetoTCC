@@ -1,9 +1,8 @@
-@extends('layouts.frente-loja')
-
-@section('conteudo')
+@include('layouts.cardapio_header_novo')
+<br/>
 <div class='container'>
     <div class="col-md-6 col-md-offset-3">
-        <div class="panel panel-info">
+        <div class="panel panel-warning">
             <div class="panel-heading"><strong>Formulário de cadastro</strong></div>
             <div class="panel-body">
                 <div class='container'>
@@ -11,14 +10,8 @@
                         <form class="form-horizontal" role="form" method="POST" action="">
                             {!! csrf_field() !!}
                               <div class='form-group'>
-                                <div class='form-group'>
-                                    <a class='btn btn-info' href="{{url('getmesa/'.\Session::get('id_mesa'))}}">Voltar ao Cardápio</a>
-                                </div>
-                              </div>
-                              <div class='form-group'>
                                 <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                                   <label class="control-label">Nome</label>
-
                                   <input type="text" class="form-control" placeholder="Digite seu Nome" name="name" value="{{ old('name') }}">
                                   @if ($errors->has('name'))
                                       <strong class='text-danger'>{{ $errors->first('name') }}</strong>
@@ -78,7 +71,7 @@
                               </div>
                               <div class="form-group">
                                   <div class="form-group">
-                                      <button type="submit" class="btn btn-primary">
+                                      <button type="submit" class="btn btn-danger">
                                           <i class="fa fa-user-circle-o" aria-hidden="true"></i>Cadastrar
                                       </button>
                                   </div>
@@ -91,4 +84,15 @@
         </div>
     </div>
 </div>
-@endsection
+<script src="{{asset('bootstrap/js/jquery.min.js')}}"></script>
+<script type="text/javascript">
+$(document).ready (function(){
+        $(".alert-success").fadeTo(2000, 500).slideUp(500, function(){
+        $(".alert-success").slideUp(500);
+        });  
+        $(".alert-danger").fadeTo(2000, 500).slideUp(500, function(){
+        $(".alert-danger").slideUp(500);
+        }); 
+
+ });
+</script>

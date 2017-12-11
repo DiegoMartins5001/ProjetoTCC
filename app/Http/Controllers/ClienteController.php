@@ -66,13 +66,13 @@ class ClienteController extends Controller {
             } else {
                 if ($req->status == 'nao-pagos') {
                     $models['tipoVisao'] = 'Não Pagos';
-                    $models['pedidos'] = Venda::where('user_id',$id_cliente)->where('pago', false)->paginate(10);
+                    $models['pedidos'] = Venda::where('user_id',$id_cliente)->where('pago', 0)->paginate(10);
                 } else if ($req->status == 'pagos') {
                     $models['tipoVisao'] = 'Pagos';
-                    $models['pedidos'] = Venda::where('user_id',$id_cliente)->where('pago', true)->paginate(10);
+                    $models['pedidos'] = Venda::where('user_id',$id_cliente)->where('pago', 1)->paginate(10);
                 } else if ($req->status == 'finalizados') {
                     $models['tipoVisao'] = 'Finalizados/Enviados';
-                    $models['pedidos'] = Venda::where('user_id',$id)->where('enviado', true)->paginate(10);
+                    $models['pedidos'] = Venda::where('user_id',$id_cliente)->where('enviado', 1)->paginate(10);
                 }
             }
             return view('frente.cliente.pedidos-listar', $models);

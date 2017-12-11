@@ -1,7 +1,7 @@
-@extends('layouts.frente-loja')
-@section('conteudo')
+@include('layouts.cardapio_header_novo')
+
 <style>
-/* https://bootsnipp.com/snippets/featured/animation-loading-state   Author: Kosmom.ru*/.loading,.loading>td,.loading>th,.nav li.loading.active>a,.pagination li.loading,.pagination>li.active.loading>a,.pager>li.loading>a{
+/*Author: Kosmom.ru*/.loading,.loading>td,.loading>th,.nav li.loading.active>a,.pagination li.loading,.pagination>li.active.loading>a,.pager>li.loading>a{
     background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));
     background-size: 40px 40px;
 animation: 2s linear 0s normal none infinite progress-bar-stripes;
@@ -10,11 +10,6 @@ animation: 2s linear 0s normal none infinite progress-bar-stripes;
 .btn.btn-default.loading,input[type="text"].loading,select.loading,textarea.loading,.well.loading,.list-group-item.loading,.pagination>li.active.loading>a,.pager>li.loading>a{
 background-image: linear-gradient(45deg, rgba(235, 235, 235, 0.15) 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, rgba(235, 235, 235, 0.15) 50%, rgba(235, 235, 235, 0.15) 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0));
 }
-
-
-
-
-
 .btn3d {
     position:relative;
     top: -6px;
@@ -106,12 +101,20 @@ background-image: linear-gradient(45deg, rgba(235, 235, 235, 0.15) 25%, rgba(0, 
 
 </style>
 <br/>
+<div class="col-lg-12">
+    <div class="container">
+        @include('layouts.messages')
+    </div>
+</div>
+<br/>
+<br/>
+<div class="container">
     @if(\Session::get('cliente')=='')
-        <div class="alert alert-info alert-dismissable text-center">
-            <strong>Ola!</strong>Se Você se cadastrar no nosso Sistema, Suas compras terão <strong>Desconto</strong>, Faça seu cadastro clicando no botão abaixo:<br/><a class='btn btn-primary btn-sm'  href="{{url('cadastrar_cliente')}}">Cadastrar</a> <br/> Ou acesse sua conta<br/><a href="{{url('login_cliente')}}" class='btn btn-info btn-sm'>Acessar</a> 
+        <div style="margin-top:25px;" class="alert alert-warning alert-dismissable text-center">
+            <h4><strong>Ola!</strong>Se Você se cadastrar no nosso Sistema, Suas compras terão <strong>Desconto</strong>, Faça seu cadastro clicando no botão abaixo:<br/></h4><a class='btn btn-warning btn-sm'  href="{{url('cadastrar_cliente')}}">Cadastrar</a> <br/><h4>Ou acesse sua conta</h4><a href="{{url('login_cliente')}}" class='btn btn-danger btn-sm'>Acessar</a>  
         </div>
     @endif
-    <a class="btn btn-info" href="{{url('volte_sempre_liberar',\Session::get('id_mesa'))}}">Sair da mesa</a>
+    <a class="btn btn-danger btn-lg" href="{{url('volte_sempre_liberar',\Session::get('id_mesa'))}}">Sair da mesa</a>
     <br/>
     <br/>
     <div class="form-group">
@@ -123,12 +126,11 @@ background-image: linear-gradient(45deg, rgba(235, 235, 235, 0.15) 25%, rgba(0, 
         </label>
         <p class="mensagem_error">{{$errors->first('servico',':message')}}</p>
     </div>
-    <div id='prod_destacado'>
-        <h1 class='hidden-xs'>Produtos em Destaque:</h1>
-        <h1 style='margin-top:50px;' class='hidden-lg hidden-md hidden-sm '>Produtos em Destaque:</h1>
+    <div id="prod_destacado">
+            <h2>Produtos em Destaque:</h2>
         <div class='col-sm-12'>
             <div class="page-header text-muted">
-                <h3 style="color: #26C6DA";>{{count($produto_destacado)}} Produtos em Destaque</h3>
+                {{count($produto_destacado)}} Produtos em Destaque
             </div>
         </div>
         <div class="col-md-12">
@@ -138,17 +140,20 @@ background-image: linear-gradient(45deg, rgba(235, 235, 235, 0.15) 25%, rgba(0, 
                 <div class="teste">
                     <div class="col-sm-6 col-md-4">
                         <div class="front">
-                            <img style='height:300px; width:300px;' src="{{asset('uploads/'.$produto_destacado->imagem_nome)}}" alt="{{$produto_destacado->imagem_nome}}">
-                            <a style="width:99%;" class='btn btn-info btn-lg btn-block text-center loading disabled'>Clique Aqui Para Mais Informações</a>
+                            <h5 class="text-warning" >Imagem Meramente Ilustrativa</h5>
+                            <img style='margin-left:40px; height:250px; width:250px;' src="{{asset('uploads/'.$produto_destacado->imagem_nome)}}" alt="{{$produto_destacado->imagem_nome}}">
+                            <a style="width:90%;" class='btn btn-warning btn-lg btn-block text-center loading disabled'>Clique Aqui Para Mais Detalhes</a>
                         </div>
                         <div class="back">
-                            <div class="caption">
-                                <img style='height:300px; width:350px;' src="{{asset('uploads/'.$produto_destacado->imagem_nome)}}" alt="{{$produto_destacado->imagem_nome}}">
-                                <div><h3>{{$produto_destacado->nome}}</h3></div>
-                                <h4 class="text-muted">{{$produto_destacado->marca->nome}}</h4>
-                                <p style="width: 300px;" class="col-xs-4">{{str_limit($produto_destacado->descricao,100)}}</p>
-                                <button type="button" class="btn btn-primary btn-lg getid" value='{{$produto_destacado->id}}' data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Mais Detalhes</button>
-                                <h4>R$:{{$produto_destacado->preco_venda}}</h4>
+                            <img style='height:300px; width:300px;' src="{{asset('uploads/'.$produto_destacado->imagem_nome)}}" alt="{{$produto_destacado->imagem_nome}}">
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                    {{$produto_destacado->nome}}
+                                </h4>
+                                <p class="card-text">{{str_limit($produto_destacado->descricao,100)}}</p>
+                                <h4 class="card-text">R${{$produto_destacado->preco_venda}}</h4>
+                            <!-- Trigger the modal with a button -->
+                                <button type="button" class="btn btn-warning btn-lg getid" value='{{$produto_destacado->id}}' data-toggle="modal" data-target="#myModal">Mais Detalhes</button>
                             </div>
                         </div>
                     </div>
@@ -159,7 +164,7 @@ background-image: linear-gradient(45deg, rgba(235, 235, 235, 0.15) 25%, rgba(0, 
         </div>
     </div>
     <br/>
-    <div id='cardapio_produtos'>
+    <div id="cardapio_produtos">
         <h2 style="padding-bottom: 50px;">Cardápio</h2>
         <div class="col-md-12">
         @foreach($produto->chunk(3) as $linha)
@@ -167,8 +172,10 @@ background-image: linear-gradient(45deg, rgba(235, 235, 235, 0.15) 25%, rgba(0, 
             @foreach($linha as $produto)
                 <div class="col-sm-6 col-md-4 flip" style="margin-bottom: 30px;">
                     <div class="front">
-                        <img style='height:300px; width:300px;' src="{{asset('uploads/'.$produto->imagem_nome)}}" alt="">
-                        <a style="width:99%;" class='btn btn-info btn-lg btn-block text-center loading disabled'>Clique Aqui Para Mais Informações</a>
+                        <h5 class="text-warning" >Imagem Meramente Ilustrativa</h5>
+                        <img style='margin-left:40px; height:250px; width:250px;' src="{{asset('uploads/'.$produto->imagem_nome)}}" alt="">
+                        <a style="width:90%;" class='btn btn-warning btn-lg btn-block text-center loading disabled'>Clique Aqui Para Mais Detalhes</a>
+
                     </div>
                     <div class="back">
                         <img style='height:300px; width:300px;' src="{{asset('uploads/'.$produto->imagem_nome)}}" alt="">
@@ -179,7 +186,7 @@ background-image: linear-gradient(45deg, rgba(235, 235, 235, 0.15) 25%, rgba(0, 
                             <p class="card-text">{{str_limit($produto->descricao,100)}}</p>
                             <h4 class="card-text">R${{$produto->preco_venda}}</h4>
                         <!-- Trigger the modal with a button -->
-                            <button type="button" class="btn btn-primary btn-lg getid" value='{{$produto->id}}' data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Mais Detalhes</button>
+                            <button type="button" class="btn btn-warning btn-lg getid" value='{{$produto->id}}' data-toggle="modal" data-target="#myModal">Mais Detalhes</button>
                         </div>
                     </div>
                 </div>
@@ -203,18 +210,18 @@ background-image: linear-gradient(45deg, rgba(235, 235, 235, 0.15) 25%, rgba(0, 
                <p class='valor'></p>
                <img style='height:200px; width:200px;' class="imagem" />
                <div class='col-md-12'>
-               <p>Média de Avaliações<p>
-               <h5 style="background-color:#2ecc71; border-radius:7px; height:30px; padding-top: 7px; color: black; font-weight: bold;" class="text-center avaliado col-md-3"><strong></strong>
+               <p>Média de avaliações<p>
+               <h5 style="background-color:#2ecc71; border-radius:7px; height:30px; padding-top:7px; color:black; font-weight:bold;" class="alert text-center avaliado col-md-3"><strong></strong>
                </h5>
                </div>
             <form class="action_carrinho"  action="{{route('adicionar')}}">
         </div>
         <div class="modal-footer">
                 <p class='text-left'>Quantidade</p>
-                <input style="width: 60px; margin-right: 10px;" type="numeric" value="1" name="quant" class="col-xs-1 form-control text-center quant" autocomplete="off">
+                <input style="width: 60px; margin-right: 10px;" type="numeric" value="1" name="quant" class="col-xs-1 form-control text-center quant">
                 <br/>
                 <br/>
-                <button type="submit" name="botao" value="" class="btn btn-primary btn-lg  pull-left col-md-5 col-sm-3 col-xs-8 add_carrinho"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Adicionar ao Carrinho</button>
+                <button type="submit" name="botao" value="" class="btn btn-warning btn-lg  pull-left add_carrinho" > Adicionar ao carrinho</button>
             <button type="button" class="btn btn-default  pull-right" data-dismiss="modal">Fechar</button>
             </form>
         </div>
@@ -229,7 +236,7 @@ background-image: linear-gradient(45deg, rgba(235, 235, 235, 0.15) 25%, rgba(0, 
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title titulo">Carrinho</h4>
+            <h4 class="modal-title">Carrinho</h4>
           </div>
           <div class="modal-body">
             <table style="display: block !important;" class="table table-responsive">
@@ -240,7 +247,7 @@ background-image: linear-gradient(45deg, rgba(235, 235, 235, 0.15) 25%, rgba(0, 
                         <th class="text-right">Preço Unitário</th>
                         <th>Quantidade</th>
                         <th></th>
-                        <th><a href="{{route('carrinho.esvaziar')}}" class='btn btn-warning btn-sm'><span class="glyphicon glyphicon-trash"></span> Esvaziar Carrinho</a></th>
+                        <th><a href="{{route('carrinho.esvaziar')}}" class='btn btn-warning btn-sm'>Esvaziar carrinho</a></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -255,21 +262,20 @@ background-image: linear-gradient(45deg, rgba(235, 235, 235, 0.15) 25%, rgba(0, 
                         <td class="text-center">
                             {{number_format($item->produto->preco_venda, 2, ',', '.')}}
                         </td>
-                        <td class="text-center quant_item col-md-7 col-sm-6 col-xs-5"> 
-                             <input style="width: 27px; height: 25px; margin-right: 1px; margin-top: 10px;" type="numeric" value="{{$item->qtde}}" name="quant" disabled class="col-sm-1 col-xs-1 form-control btn-xs text-center quant">
+                        <td class="text-center quant_item col-md-6 col-sm-6 col-xs-5"> 
+                           <input style="width: 27px; height: 25px; margin-right: 1px; margin-top: 10px;" type="numeric" value="{{$item->qtde}}" name="quant" disabled class="col-sm-1 col-xs-1 form-control btn-xs text-center quant">
                                 
                                 <!--<button style="margin-right: 2px; margin-left: 1px; width: 10px; text-indent: -3px;" class="btn btn-primary btn-sm col-md-2 col-sm-2 col-xs-2 increment" type="submit" value="{{$item->produto->id}}">+</button>-->
 
-                                <button style="text-indent: -5px; margin-bottom: 10px; padding-left: 14px; padding-right: 5px; margin-top: 15px;" type="button" value="{{$item->produto->id}}" name="teste" class="btn-xs btn-primary btn-sm-1 col-md-1 col-xs-1 btn-xs-1 col-sm-offset--1 btn3d increment"><span class="glyphicon glyphicon-plus"></span></button>
+                                <button style="text-indent: -5px; margin-bottom: 10px; padding-left: 14px; padding-right: 5px; margin-top: 15px;" type="button" value="{{$item->produto->id}}" name="teste" class="btn-xs btn-warning btn-sm-1 col-md-1 col-xs-1 btn-xs-1 col-sm-offset--1 btn3d increment"><span class="glyphicon glyphicon-plus"></span></button>
 
-                                <button style="text-indent: -5.5px; margin-bottom: 10px; padding-left: 14px; padding-right: 5px; margin-top: 15px;" type="button" value="{{$item->produto->id}}" name="teste" class="btn-xs btn-primary btn-sm-1 col-md-1 col-xs-1 btn-xs-1 btn3d decrement"><span class="glyphicon glyphicon-minus"></span></button>
+                                <button style="text-indent: -4.9px; margin-bottom: 10px; padding-left: 14px; padding-right: 5px; margin-top: 15px;" type="button" value="{{$item->produto->id}}" name="teste" class="btn-xs btn-warning btn-sm-1 col-md-1 col-xs-1 btn-xs-1 btn3d decrement"><span class="fa fa-btn fa-minus"></span></button>
 
                                 <!--<button style="text-indent: -3px;" name="teste" class="btn btn-primary btn-sm col-md-1 col-sm-1 col-xs-1 decrement" type="submit" value="{{$item->produto->id}}"> - </button>-->
-                                
                         </td>
                         <td> 
                         <a href="{{route('remover', $item->produto->id, $item->qtde)}}" 
-                                style="margin-bottom: 3px;" class="btn btn-danger btn-xs pull-right"><span class="glyphicon glyphicon-remove"></span> Excluir item</a>
+                                style="margin-bottom: 3px;" class="btn btn-danger btn-xs pull-right">Excluir item</a>
                         </td>
                     </tr>
                     @endforeach
@@ -290,14 +296,15 @@ background-image: linear-gradient(45deg, rgba(235, 235, 235, 0.15) 25%, rgba(0, 
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default  pull-right" data-dismiss="modal">Fechar</button>
-                <button type="submit" name="botao" class="btn btn-primary btn-lg pull-left add_carrinho" ><span class="glyphicon glyphicon-ok"></span> Confirmar Pedido</button>
+                <button type="submit" name="botao" class="btn btn-danger btn-lg  pull-left add_carrinho" > Confirmar pedido</button>
           </div>
         </div>
       </div>
     </div>
+</div>
 <!-- Code of Jquery Plugin Flip Image-->
-<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-<!--<script src="{{asset('bootstrap/js/jquery-2.1.4.min.js')}}"></script>-->
+<script src="{{asset('bootstrap/js/jquery-2.1.4.min.js')}}"></script>
+<script src="{{asset('bootstrap/js/flip.min.js')}}"></script>
 <script type="text/javascript">
     $(function(){
     $(".flip").flip({
@@ -318,102 +325,129 @@ $(function() {
             'X-CSRF-Token':$('input[name="_token"]').val()
         }
     });
-        //console.log($('.titulo').size('Carrinho') ==0);
-        //Correçao bug H4 mantendo nome do produto apos click em "Mais Detalhes"
-    $( document ).ready(function() {
-       $('.carrinho').on('click',function(){
-        if($('.titulo').text('Carrinho') == false){
-                $('.titulo').text('Carrinho');
-            }
-        }); 
-    });
-    $('.getid').click(function(){
-        var id = $(this).attr('value');
-        $.ajax({
-            type: "GET",
-            url: 'http://localhost:8000/mesa/produto/'+id,
-            data: {id: id},
-            success: function(id){
-            avaliado = id.avaliacao_total/id.avaliacao_qtde;
-            $('.modal-title').html(id.nome);
-            $('.conteudo').html(id.descricao);
-            $('.valor').html('R$: '+id.preco_venda);
-            $(".imagem").attr("src",'http://localhost:8000/uploads/'+id.imagem_nome);
-            $('.add_carrinho').val(id.id);
+        $('.getid').click(function(){
+            var id = $(this).attr('value');
+            $.ajax({
+                type: "GET",
+                url: 'http://localhost:8000/mesa/produto/'+id,
+                data: {id: id},
+                success: function(id){
+                avaliado = id.avaliacao_total/id.avaliacao_qtde;
+                $('.modal-title').html(id.nome);
+                $('.conteudo').html(id.descricao);
+                $('.valor').html('R$: '+id.preco_venda);
+                $(".imagem").attr("src",'http://localhost:8000/uploads/'+id.imagem_nome);
+                $('.add_carrinho').val(id.id);
                 if(Number.isNaN(avaliado)){
                   $('.avaliado').html('Não avaliado');  
                 }else{
                   $('.avaliado').html(avaliado.toFixed(2));
                 }
-            },
+                console.log(id);
+                //console.log($('.add_carrinho').val());
+                //console.log(id.id);
+                },
+            });
+            
         });
-        
-    });
 });
-//****----Increment----****//
-$(function() {
-    $.ajaxSetup({
-        headers:{
-            'X-CSRF-Token':$('input[name="_token"]').val()
-        }
-    });
-    $('.increment').on("click",function(){
-        var id = $(this).attr('value');
-        $.ajax({
-            type: "GET",
-            url: 'http://localhost:8000/increment_teste/'+id,
-            data: {id : id},
-            success: function(total) {
-            //console.log(total);
-            $('.total').html('R$'+total);   
-            $(this).next().prop('disabled', false);
-            var load = $(this).next().load('disabled', false);
-            },
-        });
-        
-    });
-});
-//****----Decrement----****//
-$(function() {
-    $.ajaxSetup({
-        headers:{
-            'X-CSRF-Token':$('input[name="_token"]').val()
-        }
-    });
-    $('.decrement').on("click",function(){
-        var id = $(this).attr('value');
-        if($(this).prev().prev().val()<2){
-        $(this).prop('disabled', true);
-        }
-        $.ajax({
-            type: "GET",
-            url: 'http://localhost:8000/decrement_teste/'+id,
-            data: {id : id},
-            success: function(total) {
-            $('.total').html('R$'+total);
-            },
-        });
-        
-    });
-});
+</script>
 
+<!-- Increment -->
+
+<script type="text/javascript">
 $(function() {
-    $('.add_carrinho').click(function(){
-        window.location.href =  "http://localhost:8000/finalizar_cardapio/";
+    $.ajaxSetup({
+        headers:{
+            'X-CSRF-Token':$('input[name="_token"]').val()
+        }
     });
+        $('.increment').on("click",function(){
+            var id = $(this).attr('value');
+            
+            //console.log($(".total").text());
+            //var qtde = $('.quant').attr('value');
+            //alert(qtde);
+            //console.log(id);
+            $.ajax({
+                type: "GET",
+                url: 'http://localhost:8000/increment_teste/'+id,
+                data: {id : id},
+                success: function(total) {
+                //console.log(total);
+                $('.total').html('R$'+total);   
+                $(this).next().prop('disabled', false);
+                var load = $(this).next().load('disabled', false);
+                //$('.total').load().val(); carrega valor 
+                //$('.increment').html(id.id);
+                //console.log(total);
+                //console.log(id.id);
+                //console.log($('.add_carrinho').val());
+                //console.log(id.id);
+                },
+            });
+            
+        });
 });
+</script>
+<!-- Decrement -->
+<script type="text/javascript">
+$(function() {
+    $.ajaxSetup({
+        headers:{
+            'X-CSRF-Token':$('input[name="_token"]').val()
+        }
+    });
+        $('.decrement').on("click",function(){
+            var id = $(this).attr('value');
+            //console.log($(this).parent().parent().parent().next().children().children().next().children().html()); acessa valor por Jquery metodo navegação por tag
+            //var qtde = $('.quant').attr('value');
+            //alert(qtde);
+            //console.log(id);
+            if($(this).prev().prev().val()<2){
+            $(this).prop('disabled', true);
+            }
+            $.ajax({
+                type: "GET",
+                url: 'http://localhost:8000/decrement_teste/'+id,
+                data: {id : id},
+                success: function(total) {
+                $('.total').html('R$'+total);
+                //$('.total').load().text();
+                //$('.increment').html(id.id);
+                //console.log(total);
+                //console.log(id.id);
+                //console.log($('.add_carrinho').val());
+                //console.log(id.id);
+                },
+            });
+            
+        });
+});
+</script>
+
+
+<script type="text/javascript">
+$(function() {
+    
+        $('.add_carrinho').click(function(){
+            window.location.href =  "http://localhost:8000/finalizar_cardapio/";    
+            
+        });
+});
+</script>
+<script>
 //////////////incrementaçao btn
     $(".increment").on('click',function(){
         var value = $('.quant').val();
         $(this).prev().val(parseInt($(this).prev().val())+1); return false;
     });
-
     $(".increment").on('click',function(){
       if($(this).prev().val()<2){
             $(this).next().prop('disabled', true);
         }
+        
     });
-
     $(".increment").on('click',function(){
       if($(this).prev().val()>1){
             $(this).next().prop('disabled', false);
@@ -432,15 +466,20 @@ $(function() {
             $(this).prop('disabled', true);
         }
     });
+</script>
 
+
+<script type="text/javascript">
 $(function() {
-    $('.cadastrar').click(function(){
-        window.location.href =  "http://localhost:8000/cadastrar_cliente/";
-    });
+    
+        $('.cadastrar').click(function(){
+            window.location.href =  "http://localhost:8000/cadastrar_cliente/";    
+            
+        });
 });
 </script>
 <!-- DIVS CARDAPIO E PRODUTOS EM DESTAQUE SCRIPT  -->
-<script src="{{asset('bootstrap/js/jquery.min.js')}}"></script>
+<script src="{{asset('bootstrap/js/jquery-2.1.4.min.js')}}"></script>
 <script type="text/javascript">
 $(document).ready(function () {
     $('#cardapio_produtos').hide();
@@ -476,4 +515,3 @@ function cardapio_prod(){
     }
 }
 </script>
-@stop

@@ -317,6 +317,30 @@ $(".confirmar").click('change',function() {
         }
         var troco = $('#troco').text();
         var entrada = $('.entrada_valor').val();
+        var desc = $('.desconto').size();
+        console.log(desc);
+        if(desc == ''){
+            desconto = 0;
+            total_n = 0;
+            troco_n = 0;
+        }else{
+            desconto = $('.novo_total_desc').text();
+            total_n = $('.novo_total').text();
+            troco_n = $('.novo_desc').text();
+        }
+        //terminar
+        /*if($('.desconto').size('Desconto')){
+            console.log($('.desconto').val());
+            desconto = 0;
+            total_n = 0;
+            troco_n = 0;
+        }else{
+            desconto = $('.novo_total_desc').val();
+            total_n = $('.novo_total').val();
+            troco_n = $('.novo_desc').val();
+        }*/
+        
+        //console.log(desconto);
         window.location.href = 
         '{{route("troco.salvar")}}'+'/'+id_pedido+'/'+troco+'/'+entrada+'/'+desconto+'/'+total_n+'/'+troco_n+'/';    
     });

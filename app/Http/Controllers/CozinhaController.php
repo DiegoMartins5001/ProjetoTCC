@@ -98,7 +98,7 @@ class CozinhaController extends Controller{
                 ]);
             $data_inicial = $request->input('data_inicial') ? $request->input('data_inicial') : \Carbon\Carbon::today()->format('d/m/Y');
             $data_final = $request->input('data_final') ? $request->input('data_final') : \Carbon\Carbon::today()->format('d/m/Y');;
-             $venda = Venda::orderBy('id_venda','DESC')->where('data_venda','>=',$data_inicial)->where('data_venda','<=',$data_final)->where('status',3)->paginate(10);
+             $venda = Venda::orderBy('id_venda','DESC')->where('data_venda','>=',$data_inicial)->where('data_venda','<=',$data_final)->where('status',3)->paginate(5);
         }
         return view('frente.cozinha.pedido',['venda'=>$venda]);
     }

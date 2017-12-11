@@ -132,8 +132,8 @@ class MesaController extends Controller{
         }elseif($mesa->status == 1){
            return redirect('liberar_cardapio')->with('mensagens-danger-centro','Essa mesa não foi reservada'); 
        }else{
-        $produto = Produto::where('destacado',0)->get();
-        $produto_destacado = Produto::where('destacado',1)->get();
+        $produto = Produto::where('destacado',0)->orderBy('id')->get();
+        $produto_destacado = Produto::where('destacado',1)->orderBy('id')->get();
         $itens = $this->carrinho->getItens();
         $total = $this->carrinho->getTotal();
         \Session::put('id_mesa',$id);
@@ -238,6 +238,8 @@ class MesaController extends Controller{
         $pedido->valor_venda = $this->carrinho->getTotal();
         $pedido->id_mesa = \Session::get('id_mesa');
         $pedido->status = 1;
+        $pedido->pago = 0;
+        $pedido->enviado = 0;
         $pedido->save();
         foreach ($this->carrinho->getItens() as $idx => $itemCarrinho) {
             $itemVenda = new VendaItem();
@@ -341,6 +343,7 @@ class MesaController extends Controller{
         $mesa->status = 1;
         $mesa->reservar_numero = FALSE;
         $mesa->save();
+        $this->carrinho->esvaziar();
         \Session::forget('id_mesa_liberar');
         \Session::forget('id_mesa');
         \Session::forget('mesa_numero');
@@ -348,7 +351,7 @@ class MesaController extends Controller{
         \Session::forget('id_cliente');
         \Session::forget('role_cliente');
         \Session::forget('nome_cliente');
-        return redirect('liberar_cardapio')->with('mensagens-sucesso-centro','Obrigado pela preferência e volte sempre.');
+        return redirect('liberar_cardapio')->with('mensagens-sucesso','Obrigado pela preferência e volte sempre.');
     }
 
     public function liberar_cardapio_form(){

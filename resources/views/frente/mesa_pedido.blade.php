@@ -59,6 +59,6 @@
             function(){
                 window.location = "http://localhost:8000/mesa_pedido/"+id; 
             },
-        5000);
+        20000);
        </script>
 @endsection

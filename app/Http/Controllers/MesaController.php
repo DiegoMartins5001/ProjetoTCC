@@ -330,17 +330,13 @@ class MesaController extends Controller{
     public function MesaVolteSempre(){
         $id = \Session::get('id_mesa');
         $pegar_mesa = Mesa::find($id);
-        \Session::forget('cliente');
-        \Session::forget('id_cliente');
-        \Session::forget('role_cliente');
-        \Session::forget('nome_cliente');
         \Session::forget('id_mesa_numero');
         \Session::forget('mesa_numero');
         return view('frente.volte_sempre',compact('pegar_mesa'));
     }
 
     public function VolteSempreLiberar($id){
-        $id = \Session::get('id_mesa_liberar');
+        $id = \Session::get('id_mesa');
         $mesa = Mesa::find($id);
         $mesa->status = 1;
         $mesa->reservar_numero = FALSE;
@@ -348,6 +344,10 @@ class MesaController extends Controller{
         \Session::forget('id_mesa_liberar');
         \Session::forget('id_mesa');
         \Session::forget('mesa_numero');
+        \Session::forget('cliente');
+        \Session::forget('id_cliente');
+        \Session::forget('role_cliente');
+        \Session::forget('nome_cliente');
         return redirect('liberar_cardapio')->with('mensagens-sucesso-centro','Obrigado pela preferência e volte sempre.');
     }
 

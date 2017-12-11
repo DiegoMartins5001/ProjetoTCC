@@ -1,6 +1,7 @@
 @extends('layouts.cozinha_cabecalho')
 
 @section('cozinha')
+<div class="containar">
 <h2>Pedido numero  {{$venda->id_venda}}</h2>
 <table class="table table-striped">
     <thead>
@@ -70,4 +71,5 @@
         @endforeach
     </tbody>
 </table>
+</div>
 @stop

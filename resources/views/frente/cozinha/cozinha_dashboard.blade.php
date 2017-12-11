@@ -146,119 +146,116 @@ $(function() {
             'X-CSRF-Token':$('input[name="_token"]').val()
         }
     });
-        $('.detalhes').click(function(){
+    $('.detalhes').click(function(){
 
-            var id = $(this).attr('value');
-            if($('.itens').empty('tr:tabela_item')){
-                $.ajax().abort();
+        var id = $(this).attr('value');
+        if($('.itens').empty('tr:tabela_item')){
+            $.ajax().abort();
+        }
+        if($('.cabecalho_mesa').empty('tr:tabela_item')){
+            $.ajax().abort();
+        }
+        
+        $.ajax({
+            type: "GET",
+            url: '{{route("pedido.pendentes")}}'+'/'+id,
+            data: {},
+            success: function(itens){
+            var tabela = $('.tabela_item').find();
+            var status_cabecalho = itens[0].cabecalho[0].venda_status;
+            var botao_classe = '';
+
+            if(status_cabecalho == 1){
+                status_cabecalho = 'Pendente';
+                botao_classe = 'btn btn-danger pendente';
             }
-            if($('.cabecalho_mesa').empty('tr:tabela_item')){
-                $.ajax().abort();
+            if(status_cabecalho == 2){
+                status_cabecalho = 'Em Andamento';
+                botao_classe = 'btn btn-info andamento';
             }
+            if(status_cabecalho == 3){
+                status_cabecalho = 'Pronto';
+                botao_classe = 'btn btn-success pronto';
+            }
+            $('.cabecalho').append("<tr class='cabecalho_mesa'>" + "<td class='data'>"+ itens[0].data +"</td>" +"<td>"+ itens[0].cabecalho[0].numero+"</td>"+"<td>R$"+ itens[0].cabecalho[0].valor_venda+"</td>" + "<td>" + "<button value='"+ itens[0].cabecalho[0].id_venda +"' class='"+botao_classe+"'>" + status_cabecalho + "</button>" + "</td>" + "</tr>");
+            // fim
+            $.each(itens[0]['itens'],function(key, value){
             
-            $.ajax({
-                type: "GET",
-                url: '{{route("pedido.pendentes")}}'+'/'+id,
-                data: {},
-                success: function(itens){
-                //var param = itens;
-                var tabela = $('.tabela_item').find();
-                var status_cabecalho = itens[0].cabecalho[0].venda_status;
-                var botao_classe = '';
-
-                if(status_cabecalho == 1){
-                    status_cabecalho = 'Pendente';
-                    botao_classe = 'btn btn-danger pendente';
-                }
-                if(status_cabecalho == 2){
-                    status_cabecalho = 'Em Andamento';
-                    botao_classe = 'btn btn-info andamento';
-                }
-                if(status_cabecalho == 3){
-                    status_cabecalho = 'Pronto';
-                    botao_classe = 'btn btn-success pronto';
-                }
-                $('.cabecalho').append("<tr class='cabecalho_mesa'>" + "<td class='data'>"+ itens[0].data +"</td>" +"<td>"+ itens[0].cabecalho[0].numero+"</td>"+"<td>R$"+ itens[0].cabecalho[0].valor_venda+"</td>" + "<td>" + "<button value='"+ itens[0].cabecalho[0].id_venda +"' class='"+botao_classe+"'>" + status_cabecalho + "</button>" + "</td>" + "</tr>");
-                // fim
-                $.each(itens[0]['itens'],function(key, value){
-                
-                $('.itens').append("<tr class='tabela_item'>" + "<td>" + "<img style='width: 50px;' src='/uploads/"+ value.imagem_nome +"' data-lightbox='roadtrip'/>" + "</td>" +"<td>" + value.nome +  "</td>" + "<td>" + value.qtde + "</td>" + "</tr>");
+            $('.itens').append("<tr class='tabela_item'>" + "<td>" + "<img style='width: 50px;' src='/uploads/"+ value.imagem_nome +"' data-lightbox='roadtrip'/>" + "</td>" +"<td>" + value.nome +  "</td>" + "<td>" + value.qtde + "</td>" + "</tr>");
+            });
+            $(function(){
+                $.ajaxSetup({
+                    headers:{
+                        'X-CSRF-Token':$('input[name="_token"]').val()
+                    }
                 });
-                $(function(){
-                        $.ajaxSetup({
-                            headers:{
-                                'X-CSRF-Token':$('input[name="_token"]').val()
-                            }
-                        });
-                            $('.pendente').on("click",function(){
-                                var id = $(this).attr('value');
-                                $.ajax({
-                                    type: "GET",
-                                    url: '{{route("status_muda_pendente")}}'+'/'+id,
-                                    data: {},
-                                    success: function(status) {
-                                        var status_cabecalho = itens[0].cabecalho[0].venda_status;
-                                        var botao_classe = '';
+                $('.pendente').on("click",function(){
+                    var id = $(this).attr('value');
+                    $.ajax({
+                        type: "GET",
+                        url: '{{route("status_muda_pendente")}}'+'/'+id,
+                        data: {},
+                        success: function(status) {
+                            var status_cabecalho = itens[0].cabecalho[0].venda_status;
+                            var botao_classe = '';
 
-                                        if(status == 2){
-                                            var tr = $('.pend').find('.'+id);
-                                            $('.pendente').attr("class",'btn btn-info andamento');
-                                            $('.andamento').text("Em Andamento");
-                                            if($(".and").length == 0){
-                                                $(".andamen").append("<table class='table table-responsive'>" + "<thead>" + "<th>" + 'Pedido' + "</th>"+ "<th>" + 'Mesa' + "</th>" + "<th>" +''+ "</th>" + "</thead>" + "<tbody class='and'>" + "</tbody" + "</table>");
-                                                $(".and").append(tr);
-                                                $(".txt_andamen").addClass('hidden');
-                                                $(".pend").find('.'+id).remove();
-                                            // Caso já contenha um Pedido, somente adiciona-o na tabela
-                                            }else{
-                                                $(".and").last().append(tr);
-                                            }
-                                            //alert($('.pend').length);
-                                            
-                                        } 
-                                    },
-                                });
-                                
-                            });
+                            if(status == 2){
+                                var tr = $('.pend').find('.'+id);
+                                $('.pendente').attr("class",'btn btn-info andamento');
+                                $('.andamento').text("Em Andamento");
+                                if($(".and").length == 0){
+                                    $(".andamen").append("<table class='table table-responsive'>" + "<thead>" + "<th>" + 'Pedido' + "</th>"+ "<th>" + 'Mesa' + "</th>" + "<th>" +''+ "</th>" + "</thead>" + "<tbody class='and'>" + "</tbody" + "</table>");
+                                    $(".and").append(tr);
+                                    $(".txt_andamen").addClass('hidden');
+                                    $(".pend").find('.'+id).remove();
+                                // Caso já contenha um Pedido, somente adiciona-o na tabela
+                                }else{
+                                    $(".and").last().append(tr);
+                                }
+                            } 
+                        },
+                    });
+                    
                 });
-                    /// End Ajax Button Pending to Progress
-                $(function(){
-                    $.ajaxSetup({
-                        headers:{
-                            'X-CSRF-Token':$('input[name="_token"]').val()
-                        }
-                    });
-                        $('.andamento').on("click",function(){
-                            var id = $(this).attr('value');
-                            $.ajax({
-                                type: "GET",
-                                url: '{{route("status_muda_pronto")}}'+'/'+id,
-                                data: {},
-                                success: function(status_pronto) {
-                                    var status_cabecalho = itens[0].cabecalho[0].venda_status;
-                                    var botao_classe = '';
+            });
+                /// End Ajax Button Pending to Progress
+            $(function(){
+                $.ajaxSetup({
+                    headers:{
+                        'X-CSRF-Token':$('input[name="_token"]').val()
+                    }
+                });
+                    $('.andamento').on("click",function(){
+                        var id = $(this).attr('value');
+                        $.ajax({
+                            type: "GET",
+                            url: '{{route("status_muda_pronto")}}'+'/'+id,
+                            data: {},
+                            success: function(status_pronto) {
+                                var status_cabecalho = itens[0].cabecalho[0].venda_status;
+                                var botao_classe = '';
 
-                                    if(status_pronto == 3){
-                                        var tr = $(".and").find('.'+id);
-                                        $('.andamento').attr("class",'btn btn-success pronto');
-                                        $('.pronto').text("Pronto");
-                                        if($(".pron").length == 0){
-                                            $(".pronto_tab").append("<table class='table table-responsive'>" + "<thead class='tb_pront'>" + "<th>" + 'Pedido' + "</th>"+ "<th>" + 'Mesa' + "</th>" + "<th>" + "</th>" + "</thead>" + "<tbody class='pron'>" + "</tbody>" + "</table>");
-                                            $(".pron").append(tr);
-                                            $(".txt_andamen").addClass('hidden');
-                                            $(".pronto_texto").remove();
-                                            //$(".primei").find('.'+id).remove();
-                                        }else{
-                                            $(".pron").last().append(tr);
-                                        }   
-                                    }
-                                },
-                            }); 
-                        });
+                                if(status_pronto == 3){
+                                    var tr = $(".and").find('.'+id);
+                                    $('.andamento').attr("class",'btn btn-success pronto');
+                                    $('.pronto').text("Pronto");
+                                    if($(".pron").length == 0){
+                                        $(".pronto_tab").append("<table class='table table-responsive'>" + "<thead class='tb_pront'>" + "<th>" + 'Pedido' + "</th>"+ "<th>" + 'Mesa' + "</th>" + "<th>" + "</th>" + "</thead>" + "<tbody class='pron'>" + "</tbody>" + "</table>");
+                                        $(".tb_pront").next().append(tr);
+                                        $(".txt_andamen").addClass('hidden');
+                                        $(".pronto_texto").remove();
+                                        //$(".primei").find('.'+id).remove();
+                                    }else{
+                                        $(".pron").last().append(tr);
+                                    }   
+                                }
+                            },
+                        }); 
                     });
-                },
-            });   
-        });
+                });
+            },
+        });   
+    });
 });
 </script>
 <script type="text/javascript">
@@ -280,13 +277,9 @@ $(function() {
                     url: '{{route("novos_pedidos_pendente")}}',
                     data: {},
                     success: function(venda) {
-                        //$(".novos_pendente").empty();
-                        //$(".novos_pendente tbody").empty();
                         if($('.novos_pendente').length == 0){
                             $('.txt_pendente').removeClass('hidden');
                             $('.novos_pendente').addClass('hidden');
-                            //$('.tab').addClass('hidden');
-                            //$('.txt_pendente').removeClass('hidden');
                         }else{
                             $('.txt_pendente').addClass('hidden');
                             $('.novos_pendente').removeClass('hidden');
@@ -294,12 +287,7 @@ $(function() {
                         }
                         if($('.and').length == 0){                         
                             $('.txt_andamen').removeClass('hidden');
-                            //$('#andamento_pag').removeClass('hidden');
-                            //$('.tb_andamen').removeClass('hidden');
                             $('.tb_andamen').addClass('hidden');
-                            //$('#tb_andamen').removeClass('hidden');
-                            //$('.tab').addClass('hidden');
-                            //$('.txt_pendente').removeClass('hidden');
                         }
                         $(".novos_pendente").append("<thead class='pendente_thead'>" + "<th>" + 'Pedido' + "</th>"+ "<th>" + 'Mesa' + "</th>" + "<th>" + "</th>" + "</thead>");
                         $.each(venda[0].venda,function(key, value){
@@ -350,8 +338,6 @@ $(function() {
                                         });
                                         $('.pendente').on("click",function(){
                                             var id = $(this).attr('value');
-                                            //console.log($('.and'));
-                                            
                                             $.ajax({
                                                 type: "GET",
                                                 url: '{{route("status_muda_pendente")}}'+'/'+id,
@@ -416,10 +402,7 @@ $(function() {
                                             }
                                         });
                                         $('.andamento').on("click",function(){
-                                            if($('.pron').length == 2){
-                                                console.log($('.pron').last('.pron').addClass('hidden'));
-                                                alert('Limite');
-                                            }
+                                            
                                             var id = $(this).attr('value');
                                             $.ajax({
                                                 type: "GET",
@@ -430,7 +413,7 @@ $(function() {
                                                     var botao_classe = '';
 
                                                     if(status_pronto == 3){
-                                                        if($('tbody.and').length == 0){                         
+                                                        if($('.and').length == 0){                         
                                                             $('.txt_andamen').removeClass('hidden');
                                                             $('#andamento_pag').addClass('hidden');
                                                             $('.tb_andamen').addClass('hidden');
@@ -443,14 +426,12 @@ $(function() {
                                                             
                                                             //$('#andamento_pag').attr('style', 'display: block !important');
                                                         }
-
-                                                        
                                                         var tr = $(".and").find('.'+id);
                                                         $('.andamento').attr("class",'btn btn-success pronto');
                                                         $('.pronto').text("Pronto");
                                                         if($(".pron").length ==0){
                                                             $(".pronto_tab").append("<table class='table table-responsive'>" + "<thead>" + "<th>" + 'Pedido' + "</th>"+ "<th>" + 'Mesa' + "</th>" + "<th>" + "</th>" + "</thead>" + "<tbody class='pron'>" + "</tbody>" + "</table>");
-                                                            $(".pront_din").append(tr);
+                                                            console.log($(".pron").append(tr));
                                 
                                                             $(".pronto_texto").remove();
                                                             //$(".primei").find('.'+id).remove();
@@ -461,7 +442,7 @@ $(function() {
                                                         //alert($('.and').length);
                                                         if($('tbody.and').children().length == 0){
                                                             $('.txt_andamen').removeClass('hidden');
-                                                            $('.andamento').addClass('hidden');
+                                                            //$('.andamen').addClass('hidden');
                                                             $('.th_andamen').addClass('hidden');
                                                             $('.tb_andamen').addClass('hidden');
                                                             //$('.pendente_thead').addClass('hidden');

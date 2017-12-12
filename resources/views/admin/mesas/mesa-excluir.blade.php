@@ -2,8 +2,10 @@
 
 @section('conteudo')	
 <link href="{{asset('bootstrap/css/mycss/menu.css')}}" rel="stylesheet">
-	<div class="alert alert-danger">  
+	<div class="panel panel-danger">
+		<div class="panel-heading">  
 			<h3 >Deseja relamente excluir a mesa {{ $mesa->numero }} ?</h3>
+		</div>
 	</div>
 	
 	 	

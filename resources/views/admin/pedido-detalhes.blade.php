@@ -19,7 +19,7 @@
             <th class="text-right">Status</th>
             @if($pedido->pagseguro_transaction_id != '')
             <th></th>
-            <th class="text-right">Pagseguro</th>
+            <th class="text-right"> Pagseguro</th>
             @endif
         </tr>
     </thead>
@@ -193,10 +193,10 @@
                 <td>{{$pedido->valor_venda}}</td>
                 @if(isset($pagseguro))
                 
-                <td><a href="{{$pagseguro['info']->getLink()}}" class="btn btn-success pull-right">
-               
-                Pagar com PagSeguro
-                </a></td>
+                <td>
+                    <a href="{{$pagseguro['info']->getLink()}}" class="btn btn-success pull-right">
+                    <span class="fa fa-paypal"></span>Pagar com PagSeguro</a>
+                </td>
                 @else
                 <td>erro pagseguro
                 </td>

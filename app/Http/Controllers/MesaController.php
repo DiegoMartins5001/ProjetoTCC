@@ -166,7 +166,6 @@ class MesaController extends Controller{
         $id_produto = $request->get('botao');
         $quantidade_form = $request->input('quant');
         $itens = $this->carrinho->getItens();
-
         if($quantidade_form <= 0){
             return redirect('getmesa/'.$id_mesa)->with('mensagens-danger', 'Não é possível adicionar um produto com quantidade inferior a 0 no carrinho.');  
         }
@@ -177,7 +176,7 @@ class MesaController extends Controller{
                 return redirect('getmesa/'.$id_mesa)->withErrors('Desculpe o Incoviniente, Mas a Quantidade do Produto(s) Escolhida e Maior que o Estoque: '. $estoque);
             }
         }elseif($estoque == -1){
-            return back()->withErrors('Desculpe o Incoviniente, Não Temos mais Estoque para o Produto desejado :"(');
+            return back()->withErrors('Desculpe o Incoviniente, Não Temos mais Estoque para o Produto(s) desejado :"(');
         }
         $est = Produto::find($id_produto)->qtde_estoque;
         if ($id_produto == null){
@@ -206,8 +205,7 @@ class MesaController extends Controller{
             $this->carrinho->add($id_produto, $quantidade_form);
                 return redirect('getmesa/'.$id_mesa)->with('mensagens-sucesso', 'Produto adicionado com sucesso');
         }
-
-        return redirect('getmesa/'.$id_mesa)->with('mensagens-sucesso', 'Produto adicionado com sucesso 3'. $quantidade_form);
+        return redirect('getmesa/'.$id_mesa)->with('mensagens-sucesso', 'Produto adicionado com sucesso'. $quantidade_form);
     }
     public function Remover($id){
     

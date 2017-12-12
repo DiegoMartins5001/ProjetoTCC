@@ -10,6 +10,18 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <head>
 <title>L & C</title>
 <!-- Custom Theme files -->
+<style type="text/css">
+	@font-face {
+    font-family: 'font-awesome';
+    src: url('css/assets/fonts/glyphicons-halflings-regular.eot');
+    src: url('fonts/Calibri.eot?#iefix') format('embedded-opentype'),
+        url('css/assets/fonts/fontweawesome-webfont.woff') format('woff'),
+        url('css/assets/fonts/fontweawesome-webfont.ttf') format('ttf'),
+        url('css/assets/fonts/fontweawesome-webfont.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+</style>
 <link href="{{asset('bootstrap/css/assets/css/style.css')}}" rel="stylesheet">
 <link href="{{asset('bootstrap/css/assets/css/font-awesome.min.css') }}" rel="stylesheet">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -164,7 +176,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						@endif	
 					</div>
 					<div class="header-right cart">
-						<a data-toggle="modal" data-target="#carrinho_id" class="carrinho"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a>
+						<a data-toggle="modal" data-target="#carrinho_id" class="carrinho"><span class="glyphicon glyphicon-list-alt"></span></a>
 					</div>
 				@endif
 				<div class="clearfix"> </div>
@@ -181,5 +193,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <script src="{{asset('bootstrap/js/bootstrap-dropdownhover.min.js')}}"></script>
         <script src="{{asset('bootstrap/js/script.js')}}"></script>
         <script src="{{asset('bootstrap/js/menu.js')}}"></script>
+        <script src="{{asset('bootstrap/js/jquery-3.2.1.min.js')}}"></script>
 </body>
 </html>

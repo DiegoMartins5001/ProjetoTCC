@@ -42,7 +42,7 @@ class MarcaController extends Controller
             $marca = new Marca();
             $marca->create($request->all());
             //\Session::flash('mensagens-sucesso', 'Cadastrado com Sucesso');
-          return $this->listar();
+          return redirect('admin/marca/listar')->with('mensagens-sucesso','Cadastrado com sucesso.');
         }
     }
     

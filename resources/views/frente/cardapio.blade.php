@@ -114,7 +114,7 @@ background-image: linear-gradient(45deg, rgba(235, 235, 235, 0.15) 25%, rgba(0, 
             <h4><strong>Ola!</strong>Se Você se cadastrar no nosso Sistema, Suas compras terão <strong>Desconto</strong>, Faça seu cadastro clicando no botão abaixo:<br/></h4><a class='btn btn-warning btn-sm'  href="{{url('cadastrar_cliente')}}">Cadastrar</a> <br/><h4>Ou acesse sua conta</h4><a href="{{url('login_cliente')}}" class='btn btn-danger btn-sm'>Acessar</a>  
         </div>
     @endif
-    <a class="btn btn-danger btn-lg" href="{{url('volte_sempre_liberar',\Session::get('id_mesa'))}}">Sair da mesa</a>
+    <a class="btn btn-danger btn-lg" href="{{url('volte_sempre_liberar',\Session::get('id_mesa'))}}">Sair da Mesa</a>
     <br/>
     <br/>
     <div class="form-group">
@@ -153,7 +153,7 @@ background-image: linear-gradient(45deg, rgba(235, 235, 235, 0.15) 25%, rgba(0, 
                                 <p class="card-text">{{str_limit($produto_destacado->descricao,100)}}</p>
                                 <h4 class="card-text">R${{$produto_destacado->preco_venda}}</h4>
                             <!-- Trigger the modal with a button -->
-                                <button type="button" class="btn btn-warning btn-lg getid" value='{{$produto_destacado->id}}' data-toggle="modal" data-target="#myModal">Mais Detalhes</button>
+                                <button type="button" class="btn btn-warning btn-lg getid" value='{{$produto_destacado->id}}' data-toggle="modal" data-target="#myModal"><span class="fa fa-file-text-o"></span> Mais Detalhes</button>
                             </div>
                         </div>
                     </div>
@@ -221,7 +221,7 @@ background-image: linear-gradient(45deg, rgba(235, 235, 235, 0.15) 25%, rgba(0, 
                 <input style="width: 60px; margin-right: 10px;" type="numeric" value="1" name="quant" class="col-xs-1 form-control text-center quant">
                 <br/>
                 <br/>
-                <button type="submit" name="botao" value="" class="btn btn-warning btn-lg  pull-left add_carrinho" > Adicionar ao carrinho</button>
+                <button type="submit" name="botao" value="" class="btn btn-warning btn-lg  pull-left add_carrinho"> Adicionar a Comanda</button>
             <button type="button" class="btn btn-default  pull-right" data-dismiss="modal">Fechar</button>
             </form>
         </div>
@@ -236,7 +236,7 @@ background-image: linear-gradient(45deg, rgba(235, 235, 235, 0.15) 25%, rgba(0, 
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Carrinho</h4>
+            <h4 class="modal-title">Comanda</h4>
           </div>
           <div class="modal-body">
             <table style="display: block !important;" class="table table-responsive">
@@ -247,7 +247,7 @@ background-image: linear-gradient(45deg, rgba(235, 235, 235, 0.15) 25%, rgba(0, 
                         <th class="text-right">Preço Unitário</th>
                         <th>Quantidade</th>
                         <th></th>
-                        <th><a href="{{route('carrinho.esvaziar')}}" class='btn btn-warning btn-sm'>Esvaziar carrinho</a></th>
+                        <th><a href="{{route('carrinho.esvaziar')}}" class='btn btn-warning btn-sm'>Limpar Comanda</a></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -296,14 +296,14 @@ background-image: linear-gradient(45deg, rgba(235, 235, 235, 0.15) 25%, rgba(0, 
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default  pull-right" data-dismiss="modal">Fechar</button>
-                <button type="submit" name="botao" class="btn btn-danger btn-lg  pull-left add_carrinho" > Confirmar pedido</button>
+                <button type="submit" name="botao" class="btn btn-danger btn-lg  pull-left add_carrinho" ><span class="glyphicon glyphicon-ok"></span> Confirmar Pedido</button>
           </div>
         </div>
       </div>
     </div>
 </div>
 <!-- Code of Jquery Plugin Flip Image-->
-<script src="{{asset('bootstrap/js/jquery-2.1.4.min.js')}}"></script>
+<script src="{{asset('bootstrap/js/jquery-3.2.1.min.js')}}"></script>
 <script src="{{asset('bootstrap/js/flip.min.js')}}"></script>
 <script type="text/javascript">
     $(function(){
@@ -325,13 +325,13 @@ $(function() {
             'X-CSRF-Token':$('input[name="_token"]').val()
         }
     });
-        $('.getid').click(function(){
-            var id = $(this).attr('value');
-            $.ajax({
-                type: "GET",
-                url: 'http://localhost:8000/mesa/produto/'+id,
-                data: {id: id},
-                success: function(id){
+    $('.getid').click(function(){
+        var id = $(this).attr('value');
+        $.ajax({
+            type: "GET",
+            url: 'http://localhost:8000/mesa/produto/'+id,
+            data: {id: id},
+            success: function(id){
                 avaliado = id.avaliacao_total/id.avaliacao_qtde;
                 $('.modal-title').html(id.nome);
                 $('.conteudo').html(id.descricao);
@@ -343,13 +343,10 @@ $(function() {
                 }else{
                   $('.avaliado').html(avaliado.toFixed(2));
                 }
-                console.log(id);
-                //console.log($('.add_carrinho').val());
-                //console.log(id.id);
-                },
-            });
-            
+            },
         });
+        
+    });
 });
 </script>
 
@@ -479,7 +476,6 @@ $(function() {
 });
 </script>
 <!-- DIVS CARDAPIO E PRODUTOS EM DESTAQUE SCRIPT  -->
-<script src="{{asset('bootstrap/js/jquery-2.1.4.min.js')}}"></script>
 <script type="text/javascript">
 $(document).ready(function () {
     $('#cardapio_produtos').hide();

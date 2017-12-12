@@ -36,7 +36,7 @@ class PedidoController extends Controller {
     public function postCheckout(Request $req) {
         if ($req->has('transaction_id') === FALSE) {
             //dd($req);
-            return back()->withErrors('Problemas ao receber a chave de trasação do Pagseguro, '
+            return back()->withErrors('Problemas ao receber a chave de transação do Pagseguro, '
                     . 'este pedido não foi gravado');
         }
         
@@ -83,7 +83,7 @@ class PedidoController extends Controller {
 
     public function postCheckoutNotification(Request $req) {
         echo('NOTIFICATON Ainda não implementado<br/>');
-        dd($req->all());
+        //dd($req->all());
     }
 
 }

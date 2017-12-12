@@ -422,8 +422,6 @@ class AdminController extends Controller {
         return view('admin.usuario.form',['usuario'=>$usuario]);
         }
     }
-
-
     public function excluir_user($id){
         if(\Session::get('admin') == null){
             return redirect('admin/dashboard')->with('mensagens-danger','Acesso negado');
@@ -436,7 +434,6 @@ class AdminController extends Controller {
             }
         }   
     }
-
     public function deletar_user($id){
         if(\Session::get('admin') == null){
             return redirect('admin/dashboard')->with('mensagens-danger','Acesso negado');
@@ -499,11 +496,11 @@ class AdminController extends Controller {
     public function pagar_pagseguro(Request $request){
         $id_pedido = \Session::get('id_pedido');
         if ($request->has('transaction_id') === FALSE) {
-            return back()->withErrors('Problemas ao receber a chave de trasação do Pagseguro, '
+            return back()->withErrors('Problemas ao receber a chave de transação do Pagseguro, '
                     . 'este pedido não foi gravado');
         }
         if($id_pedido == null){
-            return redirect()->back()->with('mensagens-danger','erro');
+            return redirect()->back()->with('mensagens-danger','Erro');
         }
         $pedido = Venda::find($id_pedido);
         DB::beginTransaction();
@@ -519,7 +516,6 @@ class AdminController extends Controller {
         DB::commit(); 
         return redirect('admin/pedidos/'.$id_pedido)->with('mensagens-sucesso','pagamento realizado com sucesso');
     }
-    
     protected function checkout($id_pedido = null){
         $id_pedido = \Session::get('id_pedido');
         $pedido = Venda::find($id_pedido);
@@ -539,8 +535,6 @@ class AdminController extends Controller {
                     'amount' => $item->preco_venda,
                 ];
             }
-
-
             $dadosCompra = [
                 'items' => $itens,
                 'sender' => [
@@ -557,8 +551,6 @@ class AdminController extends Controller {
                     ]
                 ];
             }
-
-
             $checkout = \PagSeguro::checkout()->createFromArray($dadosCompra);
             $models['info'] = $checkout->send(\PagSeguro::credentials()->get());
 
@@ -582,15 +574,10 @@ class AdminController extends Controller {
                     'amount' => $item->preco_venda,
                 ];
             }
-
-
             $dadosCompra = [
                 'items' => $itens,
                 
             ];
-
-        
-
             $checkout = \PagSeguro::checkout()->createFromArray($dadosCompra);
             $models['info'] = $checkout->send(\PagSeguro::credentials()->get());
 
@@ -603,7 +590,5 @@ class AdminController extends Controller {
             }
         }
         return $models;
-    }
-
-    
+    }    
 }

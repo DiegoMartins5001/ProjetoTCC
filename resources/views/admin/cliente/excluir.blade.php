@@ -3,8 +3,10 @@
 @section('conteudo')
 
 	<link href="{{asset('bootstrap/css/mycss/menu.css')}}" rel="stylesheet">
-	<div class="alert alert-danger">  
-		<h3 >Deseja relamente excluir o Cliente {!! $cliente->name !!}?</h3>
+	<div class="panel panel-danger">
+		<div class="panel-heading">  
+			<h3 >Deseja relamente excluir o Cliente {!! $cliente->name !!}?</h3>
+		</div>
 	</div>
 	
 	{!! Form::open(['method'=>'DELETE', 'url'=>'admin/cliente/'.$cliente->id.'/deletar', 'style'=>'display: inline;']) !!}
